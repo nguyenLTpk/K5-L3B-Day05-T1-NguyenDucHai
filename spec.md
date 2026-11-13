@@ -106,6 +106,5 @@ Thêm:
 ---
 
 ## §7. Demo
-*(Người C phụ trách phân chia lượt & tổng hợp)*
 - Ca lạ nhận được ở demo: prototype đã làm gì, và nhóm có đổi ý gì sau ca đó không.
 
