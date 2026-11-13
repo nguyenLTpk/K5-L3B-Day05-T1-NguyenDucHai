@@ -2,7 +2,7 @@
 
 ## Thành viên nhóm
 
-**Lớp:** L3B · **Bàn / zone:** ____ · **Track:** T1 · Y tế
+**Lớp:** L3B · **Track:** T1 · Y tế
 
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
@@ -334,7 +334,7 @@ Trên prototype, lời hứa mới hiện ở mục ① "Trợ lý làm được
   - Mỗi tin của khách được gửi tới **Gemini `gemini-3.5-flash-lite`**. Gemini trả về JSON đã trích theo schema: người dùng thuốc, tuổi, dấu hiệu nguy hiểm kèm trích nguyên văn, thuốc kê đơn khách đòi mua, thuốc đang dùng, số ngày, đã dùng thuốc chưa, câu hỏi sàng lọc đề xuất.
   - Luật `decide()` vẫn là bên ra quyết định. Lý do nằm ở §5.5 e.
   - **Key không nằm trong code hay repo.** Key chỉ giữ trong bộ nhớ của tab và bị xoá khỏi ô nhập ngay khi bấm Bật. Lời gọi chỉ gửi tin dựng.
-  - Bằng chứng: [`prototype/ai-call-log.json`](prototype/ai-call-log.json) (3 lời gọi thật, không chứa key) và [`prototype/anh-5-ai-that-ca-6.png`](prototype/anh-5-ai-that-ca-6.png).
+  - Bằng chứng: [`prototype/ai-call-log.json`](prototype/ai-call-log.json) (8 lời gọi thật, gồm cả ca lạ ở demo; không chứa key) và [`prototype/anh-5-ai-that-ca-6.png`](prototype/anh-5-ai-that-ca-6.png).
 - **Các ca có sẵn trên thanh trên cùng:**
   - **K2:** ba 65 tuổi đau tức ngực, khó thở (kịch bản đắt nhất 1, §2).
   - **K1:** con sốt 39,5°C, không nói tuổi (kịch bản đắt nhất 2, §2).
@@ -344,6 +344,7 @@ Trên prototype, lời hứa mới hiện ở mục ① "Trợ lý làm được
   - Ca 4: đòi kháng sinh không có đơn.
   - Ca 5: hỏi nước muối (ca bình thường, tương ứng K3).
   - Ca 6: ca lạ "ngủ suốt gọi mãi không dậy", dùng để so sánh có và không có AI thật.
+  - Ca 7: ca lạ nhận được ở buổi demo, bé 2 tuổi uống nhầm siro hạ sốt (§7.2).
   - Ca lạ: gõ bất kỳ tin nào vào ô chat.
 
 ### 5.2 Ảnh đánh số
@@ -358,6 +359,7 @@ Trên prototype, lời hứa mới hiện ở mục ① "Trợ lý làm được
 - **ảnh 5:** [`anh-5-ai-that-ca-6.png`](prototype/anh-5-ai-that-ca-6.png) (Ca 6, có lời gọi Gemini thật).
 - **ảnh 6:** [`anh-6-ca-1-tre-lu-du.png`](prototype/anh-6-ca-1-tre-lu-du.png) (Ca 1).
 - **ảnh 7:** [`anh-7-ca-2-mang-thai.png`](prototype/anh-7-ca-2-mang-thai.png) (Ca 2, có thẻ lưu ghi chú).
+- **ảnh 8:** [`anh-8-ca-7-uong-nham.png`](prototype/anh-8-ca-7-uong-nham.png) (Ca 7, ca lạ ở demo, sau khi bổ sung nhóm ngộ độc).
 
 Trong prototype, bấm nút "Hiện số chú thích" để thấy đúng các số dưới đây.
 
@@ -366,15 +368,15 @@ Trong prototype, bấm nút "Hiện số chú thích" để thấy đúng các s
 | ① | Đầu khung chat | Tự giới thiệu là trợ lý AI, chưa phải dược sĩ. Mục mở ra "Trợ lý làm được gì, không làm gì?" | **G1** (+ Điều 11 khoản 1 Luật AI 134/2025: cho biết người dùng đang tương tác với AI) | — | tất cả |
 | ② | Khung "Trợ lý đang hiểu gì về người dùng thuốc · đã biết x/7" | 7 điều cần biết về người dùng thuốc (theo rubric riêng T1, ý 1). Mỗi điều kèm trích nguyên văn lời khách hoặc "khách chọn: …". Thanh "đã biết x/7" và dòng "Quyết định: …, theo luật, không phải phỏng đoán" | **G2**, PAIR *Explainability + Trust* | — | tất cả |
 | ③ | "Vì sao trợ lý trả lời vậy?" dưới mỗi câu của AI | Căn cứ trích từ tin khách và luật đã áp dụng | **G11** | — | tất cả |
-| ④ | Thẻ đỏ "Cần đi khám ngay" ghim đầu chat | Hiện ngay trong câu trả lời đầu tiên, trước mọi câu hỏi. Có nút Gọi 115, Cơ sở y tế gần nhất, Mình đang đi khám. Không có nút sản phẩm nào | PAIR *Errors + Graceful Failure* | `khuyen_di_kham`: **tự làm** · `goi_y_san_pham`: bị chặn | 1, 5, 6 |
-| ⑤ | Thanh "Chuyển dược sĩ" ghim đầu chat | Mức KHẨN, ƯU TIÊN hoặc THƯỜNG kèm thời gian chờ. Có nút **Huỷ chuyển** (hoàn tác). Ca khẩn ghi "không huỷ được" | **G8** | `chuyen_duoc_si`: **tự làm, có hoàn tác** | 1, 2, 5, 6, 7 |
+| ④ | Thẻ đỏ "Cần đi khám ngay" ghim đầu chat | Hiện ngay trong câu trả lời đầu tiên, trước mọi câu hỏi. Có nút Gọi 115, Cơ sở y tế gần nhất, Mình đang đi khám. Ca ngộ độc có thêm lời dặn "đừng tự gây nôn" và nút Gọi Trung tâm Chống độc. Không có nút sản phẩm nào | PAIR *Errors + Graceful Failure* | `khuyen_di_kham`: **tự làm** · `goi_y_san_pham`: bị chặn | 1, 5, 6, 8 |
+| ⑤ | Thanh "Chuyển dược sĩ" ghim đầu chat | Mức KHẨN, ƯU TIÊN hoặc THƯỜNG kèm thời gian chờ. Có nút **Huỷ chuyển** (hoàn tác). Ca khẩn ghi "không huỷ được" | **G8** | `chuyen_duoc_si`: **tự làm, có hoàn tác** | 1, 2, 5, 6, 7, 8 |
 | ⑥ | Thẻ câu hỏi sàng lọc | Mỗi lần một câu, trả lời bằng nút, luôn có "Bỏ qua". Bỏ qua thì trợ lý không đoán mà chuyển dược sĩ | **G10** | — | 2, 3, 7 |
 | ⑦ | Thẻ "⏳ Gợi ý đang chờ dược sĩ duyệt" hoặc "✔ DS… đã duyệt / chọn lúc…", và ô duyệt bên màn hình dược sĩ | Gợi ý thuốc chỉ đến tay khách khi dược sĩ bấm Duyệt. Quá 5 phút chưa duyệt thì **không tự gửi** | PAIR *Trust* | `goi_y_san_pham` (thuốc không kê đơn): **cần dược sĩ duyệt** | 3, 7 |
 | ⑧ | Thẻ "Thuốc kê đơn: trợ lý không bán qua chat" | **Không có nút mua.** Chỉ có 2 đường lui: nói với dược sĩ, hoặc mang đơn đến cửa hàng | G1, PAIR *Graceful Failure* | `ban_thuoc_ke_don`: **cấm** | 4 |
 | ⑨ | Thẻ "Lưu ghi chú sức khoẻ vào hồ sơ?" | Khách xem trước nguyên văn nội dung sẽ lưu. **Mặc định: không lưu.** Lưu rồi vẫn có nút Xoá | G8, G9 (+ rubric riêng T1, ý 7) | `luu_ghi_chu_suc_khoe`: **cần khách đồng ý** | 7 |
 | ⑩ | Nút "Không đúng, bé không 'lừ đừ'" (thẻ đỏ) và "Sửa" (khung ②) | Khách sửa điều AI hiểu sai. Lời sửa chỉ đưa ca về mức an toàn ngang hoặc cao hơn (vẫn chuyển dược sĩ), không bao giờ quay về gợi ý sản phẩm tự động | **G9** | — | tất cả |
 | ⑪ | Link "Trợ lý hiểu sai chỗ nào?" dưới câu của AI | 4 lựa chọn cụ thể. Phản hồi đi thẳng vào tóm tắt cho dược sĩ | **G15** | — | tất cả |
-| ⑫ | Màn hình dược sĩ: chi tiết ca | Mức ưu tiên, đồng hồ chờ và hạn (khẩn 2 phút, ưu tiên 3, thường 5). Tóm tắt kèm trích lời khách, mục "Cần hỏi thêm", việc trợ lý đã làm và đã chặn, trạng thái hồ sơ. Tin soạn sẵn mà dược sĩ phải đọc, sửa rồi mới gửi. Nút "Nhận ca", "Duyệt", "Không duyệt", "Mô phỏng quá hạn" | PAIR *Explainability* cho người duyệt | Cho thấy người duyệt **thấy gì trước khi bấm** và **quá hạn thì sao** | 1, 2, 3, 5, 6, 7 |
+| ⑫ | Màn hình dược sĩ: chi tiết ca | Mức ưu tiên, đồng hồ chờ và hạn (khẩn 2 phút, ưu tiên 3, thường 5). Tóm tắt kèm trích lời khách, mục "Cần hỏi thêm", việc trợ lý đã làm và đã chặn, trạng thái hồ sơ. Tin soạn sẵn mà dược sĩ phải đọc, sửa rồi mới gửi. Nút "Nhận ca", "Duyệt", "Không duyệt", "Mô phỏng quá hạn" | PAIR *Explainability* cho người duyệt | Cho thấy người duyệt **thấy gì trước khi bấm** và **quá hạn thì sao** | 1, 2, 3, 5, 6, 7, 8 |
 | ⑬ | Nhật ký hành động của trợ lý | Mỗi lần trợ lý gọi một tool hoặc bị chặn đều ghi giờ và mức tự chủ: TỰ LÀM, DƯỢC SĨ DUYỆT, KHÁCH ĐỒNG Ý, BỊ CHẶN, CẤM, HOÀN TÁC, QUÁ HẠN | PAIR *Trust* (kiểm lại được) | Cả 5 tool | tất cả |
 | ⑭ | Màn hình dược sĩ: ô "Gemini · AI thật đã thêm vào tóm tắt" | Liệt kê phần AI thật được nhận vào quyết định, phần bị từ chối, và câu hỏi sàng lọc AI đề xuất. Câu hỏi này chỉ hiện cho dược sĩ, không hiện cho khách | **G11**, PAIR *Explainability* | AI chỉ đọc và trích, không gọi tool nào | 5 |
 | ⑮ | Màn hình dược sĩ: "Lời gọi AI thật · Gemini" | Mỗi lời gọi ghi model, tin đã gửi đi, JSON Gemini trả về, phần được nhận và phần không nhận. Có nút "Tải log (JSON)". Log không bao giờ chứa key | PAIR *Trust* (kiểm lại được) | — | tất cả (có lời gọi thật ở ảnh 5) |
@@ -407,7 +409,7 @@ Trong prototype, bấm nút "Hiện số chú thích" để thấy đúng các s
 
 Thứ tự luật trong hàm `decide()`. Gặp luật nào đúng trước thì đi theo luật đó:
 
-1. Có dấu hiệu nguy hiểm, hoặc trẻ dưới 3 tháng bị sốt: **khuyên đi khám ngay + chuyển dược sĩ KHẨN**.
+1. Có dấu hiệu nguy hiểm, có dấu hiệu ngộ độc (uống nhầm, quá liều, nuốt phải…), hoặc trẻ dưới 3 tháng bị sốt: **khuyên đi khám ngay + chuyển dược sĩ KHẨN**.
 2. Đòi mua thuốc kê đơn: **từ chối, không có nút mua**. Nếu khách chỉ kể "đang uống thuốc huyết áp" thì luật hiểu là thuốc đang dùng, không từ chối.
 3. Trẻ nhỏ, mang thai, cho con bú, người già, triệu chứng từ 3 ngày, đã dùng thuốc mà chưa đỡ, đòi "thuốc mạnh hơn", hoặc đang dùng thuốc khác / có bệnh nền: **chuyển dược sĩ**. Trợ lý không soạn gợi ý thuốc.
 4. Chỉ hỏi hàng không phải thuốc: **trợ lý tự trả lời**.
@@ -430,6 +432,7 @@ Nếu một tin có hai yêu cầu, trợ lý trả lời phần hàng hoá trư
 | "đau đầu quá có thuốc gì không", rồi "hỏi gì lắm vậy trả lời luôn đi" | Ngừng hỏi, chuyển dược sĩ ngay, không đoán |
 | "hello" | Chuyển dược sĩ, đồng thời mời khách nhắn rõ hơn |
 | **Ca 6:** "thằng cu nhà em 3 tuổi sốt…, giờ cứ ngủ suốt gọi mãi không dậy…" | **Tắt AI:** luật từ khoá không có cụm này, nên ca chỉ được chuyển dược sĩ ƯU TIÊN. Đây là lỗi còn lại số 1 ở §6. **Bật AI thật:** Gemini trả về dấu hiệu nguy hiểm kèm trích nguyên văn "cứ ngủ suốt gọi mãi không dậy", ca nâng lên khám ngay + KHẨN (ảnh 5) |
+| **Ca 7** (ca lạ ở demo): "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol…" | Sau demo, luật có thêm nhóm ngộ độc: khám ngay + KHẨN cả khi tắt AI, thẻ đỏ dặn "đừng tự gây nôn", có nút Trung tâm Chống độc, không gợi ý thuốc giải độc (ảnh 8, xem §7.2) |
 
 ### 5.5 Quyết định cách hiện
 
@@ -527,7 +530,7 @@ Nếu một tin có hai yêu cầu, trợ lý trả lời phần hàng hoá trư
 
 **Lỗi còn lại, chưa sửa được:**
 
-1. **Nhận diện bằng từ khoá bỏ sót cách nói lạ**, ví dụ "bé ngủ suốt gọi không dậy". Khi đó ca nguy hiểm có thể rơi vào nhánh hỏi sàng lọc. Bật AI thật thì Gemini bắt được ca này (Ca 6, ảnh 5). Nhưng nếu Gemini lỗi hoặc quá tải thì trợ lý lại chỉ còn luật từ khoá. Câu hỏi "có dấu hiệu nào dưới đây không" chỉ chặn được một phần. Model thật cần một bộ eval riêng cho danh sách dấu hiệu nguy hiểm.
+1. **Nhận diện bằng từ khoá bỏ sót cách nói lạ**, ví dụ "bé ngủ suốt gọi không dậy". Khi đó ca nguy hiểm có thể rơi vào nhánh hỏi sàng lọc. Bật AI thật thì Gemini bắt được ca này (Ca 6, ảnh 5). Nhưng nếu Gemini lỗi hoặc quá tải thì trợ lý lại chỉ còn luật từ khoá. Câu hỏi "có dấu hiệu nào dưới đây không" chỉ chặn được một phần. Model thật cần một bộ eval riêng cho danh sách dấu hiệu nguy hiểm. Ca lạ ở demo (§7.2) cho thấy Gemini cũng không ổn định: cùng một tin, với prompt cũ Gemini bỏ sót 1/2 lần, dù temperature = 0. Vì vậy AI chỉ là lớp nâng mức thêm, còn luật từ khoá vẫn phải tự bao phủ những nhóm nguy hiểm đã biết.
 2. **Khách khẳng định sai người dùng thuốc**, ví dụ nói "mình bị ho" nhưng thật ra là cho con. Khi đó trợ lý đi nhánh người lớn. Thiết kế chỉ cứu được nếu khách tự bấm "Sửa". Nếu khách không sửa thì chưa có gì chặn.
 3. **Quá hạn bên dược sĩ:** thiết kế báo dược sĩ trưởng ca và nhắc khách gọi 115, nhưng không bảo đảm có người gọi lại trong 2 phút nếu ca trực thiếu người.
 4. **K1 chỉ hỏi tối đa 2 câu trong lúc chờ** (dấu hiệu nguy hiểm, thuốc đang dùng) để khách không thấy bị hỏi dồn. Vì vậy tuổi, cân nặng và "đã dùng thuốc gì" vẫn để dược sĩ hỏi (§3.2).
@@ -552,6 +555,40 @@ Nếu một tin có hai yêu cầu, trợ lý trả lời phần hàng hoá trư
 
 ### 7.2 Ca lạ nhận được ở demo
 
-- **Ca lạ:** _(điền sau buổi demo)_
-- **Prototype đã làm gì:** _(điền sau buổi demo)_
-- **Nhóm có đổi ý gì sau ca đó không:** _(điền sau buổi demo)_
+**Ca lạ:** *"Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?"*
+
+Đây là tai nạn ngộ độc thuốc cấp ở trẻ nhỏ. Bé chưa có triệu chứng rõ, còn người nhà thì đòi thuốc giải độc và mẹo gây nôn. Đã thêm vào prototype thành **Ca 7**.
+
+**Prototype đã làm gì (bản chạy ở buổi demo):**
+
+- **Tắt AI thật (luật từ khoá):**
+  - `extract()` bắt được người dùng thuốc là trẻ nhỏ, 2 tuổi (24 tháng).
+  - Danh sách `DANGER` lúc đó chỉ có triệu chứng đã phát ra (lừ đừ, co giật, khó thở…), nên **bỏ sót** "uống nhầm gần nửa lọ".
+  - Luật cũng đọc nhầm "hạ **sốt**" và "cho **nôn** ra" thành triệu chứng sốt, nôn.
+  - `decide()` đưa ca vào nhánh **chuyển dược sĩ ƯU TIÊN** (luật 3 ở §5.4, vì là trẻ nhỏ): hạn 3 phút, 2 câu hỏi trong lúc chờ.
+  - Trợ lý **không gợi ý thuốc giải độc hay mẹo gây nôn** nào, vì `goi_y_san_pham` bị chặn. TC1 đạt.
+  - Nhưng một ca ngộ độc cấp phải nằm chờ tới 3 phút. Ca này đáng lẽ phải được khuyên đi cấp cứu ngay, nên TC2 chưa đạt.
+- **Bật AI thật (Gemini `gemini-3.5-flash-lite`):**
+  - Ở buổi demo, Gemini trả về dấu hiệu nguy hiểm, trích nguyên văn "uống nhầm gần nửa lọ siro hạ sốt Paracetamol".
+  - Nhờ luật "AI chỉ được nâng mức an toàn" (§5.5 e), ca lên **KHẨN**: thẻ đỏ ④ "Cần đi khám ngay" có nút Gọi 115 và Cơ sở y tế gần nhất; dược sĩ trực được báo ở mức KHẨN, đứng đầu hàng chờ, hạn 2 phút.
+  - **Lúc đó thẻ đỏ chưa có lời dặn riêng cho ca ngộ độc.**
+- **Kiểm lại sau demo:** gửi lại đúng tin này 2 lần với prompt cũ. **Gemini bỏ sót 1 trong 2 lần** (danger_signs rỗng), ca chỉ ở mức ƯU TIÊN, dù temperature = 0 (`prototype/ai-call-log.json`).
+
+**Nhóm đổi ý gì sau ca đó (đã cập nhật vào prototype):**
+
+1. **Bổ sung nhóm từ khoá ngộ độc và tai nạn dược phẩm** vào luật: uống nhầm, quá liều, uống cả lọ, ngộ độc, nuốt phải, hóc dị vật.
+   - Danh sách ban đầu chỉ có triệu chứng bệnh, chưa có nhóm tai nạn chưa phát triệu chứng.
+   - Kết quả: Ca 7 lên **KHẨN** ngay cả khi tắt AI (ảnh 8).
+   - Câu phủ định "không uống nhầm gì cả" không bị bắt nhầm.
+   - Thêm luật để cụm "hạ sốt" không còn bị đọc thành triệu chứng sốt.
+2. **AI thật có ích nhưng không được làm lớp chặn duy nhất.**
+   - Ca này cho thấy chỉ dựa vào từ khoá thì bỏ sót ca tai nạn chưa có triệu chứng, và LLM giúp bắt được hành vi nguy hiểm.
+   - Nhưng lần kiểm lại cho thấy LLM cũng bỏ sót.
+   - Nhóm giữ vai trò của AI là **mắt xích nâng mức an toàn**, đồng thời bổ sung prompt của Gemini: uống nhầm thuốc, quá liều, nuốt phải hoá chất, pin hoặc dị vật là dấu hiệu nguy hiểm, *kể cả khi chưa có biểu hiện*. Sau đó Gemini bắt được 3/3 lần.
+   - Mọi nhóm nguy hiểm đã biết phải có trong luật từ khoá (§6, lỗi còn lại số 1).
+3. **Bổ sung đường lui riêng cho ca ngộ độc.** Thẻ đỏ của ca ngộ độc nay có:
+   - lời dặn **"Đừng tự gây nôn khi chưa có hướng dẫn của nhân viên y tế"** (vì có thể sặc vào đường thở) và "mang theo lọ thuốc";
+   - nút **Gọi Trung tâm Chống độc** để người nhà được chuyên gia hướng dẫn sơ cứu trong thời gian vàng. Số trong prototype là số mô phỏng.
+   - Câu AI nói cũng ghi rõ trợ lý không gợi ý thuốc giải độc, vì việc này do bác sĩ quyết định.
+   - Tin soạn sẵn cho dược sĩ dặn đưa bé đi cấp cứu và không tự gây nôn.
+   - Không có liều nào, nên TC3 vẫn đạt.

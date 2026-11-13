@@ -23,6 +23,7 @@ Nút **"Hiện số chú thích"** bật các số ① đến ⑬. Các số nà
 | Ca 4 | "bán mình 1 vỉ amoxicillin… khỏi cần đơn nha" | Thuốc kê đơn bị **cấm**: không có nút mua, chỉ có đường lui |
 | Ca 5 (ca bình thường) | "…còn nước muối sinh lý không, tối nay mình qua lấy." | Trợ lý tự trả lời tồn kho, nút giữ hàng có hoàn tác |
 | Ca 6 (ca lạ) | "thằng cu nhà em 3 tuổi sốt…, giờ cứ ngủ suốt gọi mãi không dậy…" | Chỉ có luật từ khoá: chuyển dược sĩ ƯU TIÊN, **bỏ sót** dấu hiệu nguy hiểm. Bật AI thật: Gemini bắt được dấu hiệu, ca nâng lên khám ngay + KHẨN |
+| Ca 7 (ca lạ ở buổi demo) | "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol…" | Nhóm ngộ độc: khám ngay + KHẨN, dặn "đừng tự gây nôn", nút Trung tâm Chống độc, không gợi ý thuốc giải độc |
 | **Ca lạ** | Gõ bất kỳ tin nào vào ô chat | Đi theo luật ở `spec.md` §5.4 |
 
 Các nút nên bấm thử khi demo:
@@ -41,8 +42,9 @@ Các nút nên bấm thử khi demo:
 | [`anh-5-ai-that-ca-6.png`](anh-5-ai-that-ca-6.png) | Ca 6 có lời gọi Gemini thật *(bằng chứng bonus)* |
 | [`anh-6-ca-1-tre-lu-du.png`](anh-6-ca-1-tre-lu-du.png) | Ca 1, trẻ 18 tháng lừ đừ |
 | [`anh-7-ca-2-mang-thai.png`](anh-7-ca-2-mang-thai.png) | Ca 2, mang thai, có thẻ lưu ghi chú |
+| [`anh-8-ca-7-uong-nham.png`](anh-8-ca-7-uong-nham.png) | Ca 7, ca lạ ở demo: uống nhầm siro |
 
-Để chụp lại đúng trạng thái trong ảnh, mở `index.html#case=k2&play=1&annot=1&shot=1`. Thay `case=` bằng `k1`, `k1b` (K1 chọn "Lừ đừ"), `1`, `2`, `3a` (chờ duyệt), `3` (đã duyệt), `4`, `5` hoặc `6`. Có thể thêm `say=` kèm một tin nhắn để chạy thử một ca lạ.
+Để chụp lại đúng trạng thái trong ảnh, mở `index.html#case=k2&play=1&annot=1&shot=1`. Thay `case=` bằng `k1`, `k1b` (K1 chọn "Lừ đừ"), `1`, `2`, `3a` (chờ duyệt), `3` (đã duyệt), `4`, `5`, `6` hoặc `7`. Có thể thêm `say=` kèm một tin nhắn để chạy thử một ca lạ.
 
 ## Lời gọi AI thật (bonus)
 
@@ -62,7 +64,7 @@ Cách hoạt động:
 
 Bằng chứng:
 
-- [`ai-call-log.json`](ai-call-log.json): 3 lời gọi thật cho Ca 6, 3 và 4, không chứa key.
+- [`ai-call-log.json`](ai-call-log.json): 8 lời gọi thật cho Ca 6, 3, 4 và 7 (ca lạ ở demo, trước và sau khi sửa prompt), không chứa key.
 - [`anh-5-ai-that-ca-6.png`](anh-5-ai-that-ca-6.png): ảnh chụp, xem số ⑭ và ⑮.
 
 Để chụp lại tự động, có thể truyền key qua `#key=…`. Trang sẽ xoá phần này khỏi thanh địa chỉ ngay khi đọc xong. Khi demo thì nên dùng ô nhập.

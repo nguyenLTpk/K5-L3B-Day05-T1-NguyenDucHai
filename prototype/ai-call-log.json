@@ -136,6 +136,227 @@
       ],
       "question_to_pharmacist": "Dạ, anh/chị vui lòng cho em hỏi mình bị các triệu chứng này đã mấy ngày rồi ạ?",
       "ca": "Ca 4"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?",
+      "status": "ok",
+      "ms": 30,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 799,
+        "candidatesTokenCount": 116,
+        "totalTokenCount": 915,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 799
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "child",
+        "target_quote": "Bé nhà em 2 tuổi",
+        "symptoms": [
+          "uống nhầm siro"
+        ],
+        "danger_signs": [],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "none",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "Bé nặng bao nhiêu kg và hiện có triệu chứng bất thường nào khác không ạ?",
+        "age_months": 24,
+        "age_years": null,
+        "days": null
+      },
+      "added": [],
+      "skipped": [],
+      "question_to_pharmacist": "Bé nặng bao nhiêu kg và hiện có triệu chứng bất thường nào khác không ạ?",
+      "ca": "Ca 7 (ca lạ ở demo) · prompt cũ · lần 1"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?",
+      "status": "ok",
+      "ms": 10,
+      "attempt": 2,
+      "usage": {
+        "promptTokenCount": 799,
+        "candidatesTokenCount": 149,
+        "totalTokenCount": 948,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 799
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "child",
+        "target_quote": "Bé nhà em",
+        "symptoms": [],
+        "danger_signs": [
+          {
+            "sign": "uống nhầm thuốc",
+            "quote": "uống nhầm gần nửa lọ siro hạ sốt Paracetamol"
+          }
+        ],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "none",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "Dạ, anh/chị vui lòng đưa bé đến cơ sở y tế gần nhất ngay lập tức vì uống nhầm quá liều rất nguy hiểm ạ.",
+        "age_months": null,
+        "age_years": 2,
+        "days": null
+      },
+      "added": [
+        "dấu hiệu nguy hiểm “uống nhầm gần nửa lọ siro hạ sốt Paracetamol”"
+      ],
+      "skipped": [],
+      "question_to_pharmacist": "Dạ, anh/chị vui lòng đưa bé đến cơ sở y tế gần nhất ngay lập tức vì uống nhầm quá liều rất nguy hiểm ạ.",
+      "ca": "Ca 7 (ca lạ ở demo) · prompt cũ · lần 2"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?",
+      "status": "ok",
+      "ms": 29,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 841,
+        "candidatesTokenCount": 170,
+        "totalTokenCount": 1011,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 841
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "child",
+        "target_quote": "Bé nhà em",
+        "symptoms": [],
+        "danger_signs": [
+          {
+            "sign": "Uống nhầm thuốc quá liều",
+            "quote": "vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút"
+          }
+        ],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "none",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "",
+        "age_months": 24,
+        "age_years": null,
+        "days": null
+      },
+      "added": [],
+      "skipped": [
+        "dấu hiệu nguy hiểm: luật từ khoá đã bắt được, AI đồng ý"
+      ],
+      "question_to_pharmacist": "",
+      "ca": "Ca 7 (ca lạ ở demo) · prompt mới · lần 1"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?",
+      "status": "ok",
+      "ms": 24,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 841,
+        "candidatesTokenCount": 170,
+        "totalTokenCount": 1011,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 841
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "child",
+        "target_quote": "Bé nhà em",
+        "symptoms": [],
+        "danger_signs": [
+          {
+            "sign": "uống nhầm thuốc quá liều",
+            "quote": "vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút"
+          }
+        ],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "none",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "",
+        "age_months": 24,
+        "age_years": null,
+        "days": null
+      },
+      "added": [],
+      "skipped": [
+        "dấu hiệu nguy hiểm: luật từ khoá đã bắt được, AI đồng ý"
+      ],
+      "question_to_pharmacist": "",
+      "ca": "Ca 7 (ca lạ ở demo) · prompt mới · lần 2"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?",
+      "status": "ok",
+      "ms": 32,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 841,
+        "candidatesTokenCount": 171,
+        "totalTokenCount": 1012,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 841
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "child",
+        "target_quote": "Bé nhà em",
+        "symptoms": [],
+        "danger_signs": [
+          {
+            "sign": "uống nhầm thuốc quá liều",
+            "quote": "vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút"
+          }
+        ],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "none",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "",
+        "age_months": 24,
+        "age_years": null,
+        "days": 0
+      },
+      "added": [],
+      "skipped": [
+        "dấu hiệu nguy hiểm: luật từ khoá đã bắt được, AI đồng ý"
+      ],
+      "question_to_pharmacist": "",
+      "ca": "Ca 7 (ca lạ ở demo) · prompt mới · lần 3"
     }
-  ]
+  ],
+  "ghi_chu_ca_7": "Ca lạ ở buổi demo. Với prompt cũ, Gemini bỏ sót dấu hiệu ngộ độc 1/2 lần (danger_signs rỗng). Sau khi thêm câu về uống nhầm thuốc vào prompt, Gemini bắt được 3/3 lần. Luật từ khoá cũng đã có nhóm ngộ độc nên bắt được cả khi tắt AI (spec §7.2)."
 }

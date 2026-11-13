@@ -264,13 +264,15 @@ const PRESETS={
   3:{label:'Ca 3 · Đau họng 2 ngày',clock:[22,5],text:'Họng mình đau rát 2 ngày nay, có thuốc gì không?'},
   4:{label:'Ca 4 · Đòi kháng sinh không đơn',clock:[20,30],text:'bán mình 1 vỉ amoxicillin, viêm họng hoài uống là khỏi, khỏi cần đơn nha'},
   5:{label:'Ca 5 · Hỏi nước muối',clock:[21,50],text:'Pharmacity gần mình còn nước muối sinh lý không, tối nay mình qua lấy.'},
+  7:{label:'Ca 7 · Ca lạ demo: uống nhầm siro',clock:[22,15],text:'Bé nhà em 2 tuổi vừa uống nhầm gần nửa lọ siro hạ sốt Paracetamol của anh cách đây 15 phút, giờ bé vẫn đang chơi bình thường, shop có thuốc gì giải độc hay mẹo gì cho nôn ra gấp không?'},
   6:{label:'Ca 6 · Ca lạ: ngủ gọi không dậy',clock:[23,10],text:'thằng cu nhà em 3 tuổi sốt từ tối qua, giờ cứ ngủ suốt gọi mãi không dậy, cho em xin thuốc hạ sốt loại nào tốt'}
 };
-const ORDER=['k2','k1',1,2,3,4,5,6];
+const ORDER=['k2','k1',1,2,3,4,5,6,7];
+const POISON='(?:uống nhầm|uống quá liều|quá liều|uống cả lọ|uống hết cả lọ|ngộ độc|nuốt phải|hóc dị vật|bị hóc)[^,.?!]{0,32}';
 const DANGER=['lừ đừ','li bì','lơ mơ','co giật','khó thở','thở gấp','thở rít','tím tái','tím môi','đau ngực','tức ngực','ngất','bất tỉnh','nôn ra máu','đi ngoài ra máu','phân đen','cứng cổ','méo miệng','yếu nửa người','sưng môi','sưng mặt','bỏ bú','không bú','mệt lả','không thở được','ra huyết'];
 const RX=[['kháng sinh','kháng sinh'],['amoxicillin|amoxicilin|amox|augmentin|cefuroxim|cephalexin|azithromycin|ciprofloxacin','kháng sinh'],['thuốc huyết áp|amlodipin|losartan','thuốc huyết áp'],['corticoid|prednisolon|medrol|dexamethason','corticoid'],['thuốc ngủ|diazepam|seduxen','thuốc ngủ / an thần'],['tramadol|codein','thuốc giảm đau gây nghiện'],['metformin|insulin|thuốc tiểu đường','thuốc tiểu đường']];
 const SUP=[['nước muối sinh lý|nước muối','Nước muối sinh lý 0,9% (chai 500 ml)'],['khẩu trang','Khẩu trang y tế (hộp 50 cái)'],['nhiệt kế','Nhiệt kế điện tử'],['băng gạc|bông y tế|băng cá nhân','Băng gạc / bông y tế'],['que thử thai','Que thử thai']];
-const SYM=[['sốt','sốt'],['ho','ho'],['đau họng|rát họng|viêm họng|họng (?:mình |tôi |em |bé )?(?:bị )?(?:đau|rát|viêm)','đau họng'],['sổ mũi|chảy mũi','sổ mũi'],['nghẹt mũi|ngạt mũi','nghẹt mũi'],['cảm cúm|cảm lạnh|bị cảm|cảm(?! ơn)','cảm'],['đau đầu|nhức đầu','đau đầu'],['đau bụng','đau bụng'],['tiêu chảy|đi ngoài','tiêu chảy'],['nôn|ói','nôn'],['ngứa|dị ứng|nổi mẩn|phát ban','dị ứng / ngứa'],['đau răng','đau răng'],['mất ngủ','mất ngủ'],['táo bón','táo bón'],['đầy bụng|khó tiêu','khó tiêu']];
+const SYM=[['(?<!hạ )sốt','sốt'],['ho','ho'],['đau họng|rát họng|viêm họng|họng (?:mình |tôi |em |bé )?(?:bị )?(?:đau|rát|viêm)','đau họng'],['sổ mũi|chảy mũi','sổ mũi'],['nghẹt mũi|ngạt mũi','nghẹt mũi'],['cảm cúm|cảm lạnh|bị cảm|cảm(?! ơn)','cảm'],['đau đầu|nhức đầu','đau đầu'],['đau bụng','đau bụng'],['tiêu chảy|đi ngoài','tiêu chảy'],['nôn|ói','nôn'],['ngứa|dị ứng|nổi mẩn|phát ban','dị ứng / ngứa'],['đau răng','đau răng'],['mất ngủ','mất ngủ'],['táo bón','táo bón'],['đầy bụng|khó tiêu','khó tiêu']];
 const TLABEL={self:'chính bạn (người lớn)',adult:'người lớn',child:'trẻ nhỏ',pregnant:'người đang mang thai',breastfeeding:'người đang cho con bú',elderly:'người lớn tuổi'};
 const TRIED={none:'chưa dùng gì',used:'đã dùng thuốc',notbetter:'đã dùng nhưng chưa đỡ',better:'đã dùng, có đỡ'};
 const REASON={child:'thuốc dùng cho trẻ nhỏ',pregnant:'người dùng thuốc đang mang thai',breastfeeding:'người dùng thuốc đang cho con bú',elderly:'người dùng thuốc là người lớn tuổi',notbetter:'đã dùng thuốc mà chưa đỡ',long:'triệu chứng đã kéo dài từ 3 ngày',stronger:'bạn hỏi loại thuốc mạnh hơn',otherMeds:'người bệnh đang dùng thuốc khác hoặc có bệnh nền',highFever:'có sốt cao hoặc khó nuốt',skipped:'còn thiếu thông tin và mình không muốn đoán',unknown:'mình chưa chắc hiểu đúng câu hỏi',floor:'cuộc chat đã có dấu hiệu cần thận trọng',user:'bạn muốn nói chuyện với dược sĩ'};
@@ -288,7 +290,7 @@ function grab(t,alts,neg){const m=t.match(rxw(alts,neg));return m?m[0]:null;}
 
 /* ================= TRẠNG THÁI ================= */
 let S;
-function freshFacts(){return {target:null,ageMonths:null,ageYears:null,days:null,daysText:null,tried:null,temp:null,stronger:false,danger:[],rx:[],supplies:[],symptoms:[],redflagsChecked:false,otherMeds:null,vitamins:false,highFever:false};}
+function freshFacts(){return {target:null,ageMonths:null,ageYears:null,days:null,daysText:null,tried:null,temp:null,stronger:false,danger:[],rx:[],supplies:[],symptoms:[],redflagsChecked:false,otherMeds:null,vitamins:false,highFever:false,poison:false};}
 function reset(caseId){
   const p=PRESETS[caseId]||{clock:[22,0]};
   S={caseId:caseId||null,base:p.clock,min:0,msgs:[],facts:freshFacts(),quotes:{},path:null,floor:null,
@@ -331,6 +333,7 @@ function extract(raw){
   if(m=grab(t,'mạnh hơn|loại mạnh|liều cao|thuốc mạnh')){f.stronger=true;q.stronger=m;}
   if(m=grab(t,'không cần đơn|không có đơn|khỏi cần đơn|chưa có đơn'))q.noRx=m;
   DANGER.forEach(w=>{const g=grab(t,w,true);if(g&&!S.removedDanger.includes(w)){f.danger.push(w);q['d:'+w]=g;}});
+  {const g=grab(t,POISON,true);const k='ngộ độc / uống nhầm';if(g&&!S.removedDanger.includes(k)){f.danger.push(k);q['d:'+k]=g;f.poison=true;}}
   RX.forEach(([a,l])=>{
     const cur=grab(t,'(?:đang|vẫn|hay|thường) (?:uống|dùng|tiêm)[^.,?!]{0,15}?(?:'+a+')');
     if(cur){f.otherMeds=true;q.otherMeds=cur;return;}
@@ -450,7 +453,11 @@ function enterEmerg(why){
   const go=f.target==='child'?'đưa bé':(who==='bạn'?'nhờ người đưa bạn':'đưa '+who);
   let txt=(why==='infant'?cap(who)+' bị sốt. Trẻ dưới 3 tháng tuổi bị sốt cần bác sĩ khám ngay.':cap(who)+' có dấu hiệu '+signs+', đây là dấu hiệu cần bác sĩ khám ngay.')+' Bạn hãy gọi 115 hoặc '+go+' đến cơ sở y tế gần nhất ngay bây giờ, đừng chờ thuốc qua chat. Mình đã báo dược sĩ trực (khẩn, không xếp hàng) để gọi lại cho bạn, nhưng bạn đừng đợi dược sĩ rồi mới đi.';
   if(f.stronger||f.tried==='notbetter')txt+=' Mình không gợi ý “thuốc mạnh hơn”: đã dùng thuốc mà không đỡ thì cần bác sĩ khám để quyết định.';
-  addAI(txt,{why:factWhy(),rule:'Có dấu hiệu nguy hiểm → khuyên đi khám ngay và báo dược sĩ khẩn. Không hỏi sàng lọc trước, không gợi ý sản phẩm.'});
+  if(f.poison){
+    const pq=f.danger.map(d=>S.quotes['d:'+d]||d).join('”, “');
+    txt=cap(who)+' vừa “'+pq+'”: đây là tình huống ngộ độc cần cấp cứu ngay, kể cả khi '+(f.target==='child'?'bé':'người bệnh')+' chưa có biểu hiện gì. Bạn hãy gọi 115 hoặc '+go+' đến cơ sở y tế gần nhất ngay bây giờ và mang theo lọ thuốc. Đừng tự gây nôn (móc họng, cho uống nước muối) khi chưa có hướng dẫn của nhân viên y tế, vì có thể bị sặc vào đường thở. Trợ lý không gợi ý thuốc giải độc: việc này do bác sĩ quyết định. Mình đã báo dược sĩ trực (khẩn, không xếp hàng) để gọi lại cho bạn, nhưng bạn đừng đợi dược sĩ rồi mới đi.';
+  }
+  addAI(txt,{why:factWhy(),rule:f.poison?'Ngộ độc / uống nhầm thuốc → khuyên đi khám ngay và báo dược sĩ khẩn, kể cả khi chưa có triệu chứng. Không hướng dẫn gây nôn, không gợi ý thuốc giải độc.':'Có dấu hiệu nguy hiểm → khuyên đi khám ngay và báo dược sĩ khẩn. Không hỏi sàng lọc trước, không gợi ý sản phẩm.'});
   log('khuyen_di_kham','TỰ LÀM','đã hiện thẻ đỏ, ghim đầu chat');
   if(wasActive){S.transfer.prio='khan';S.transfer.canUndo=false;log('chuyen_duoc_si','TỰ LÀM','nâng ca đang chờ lên KHẨN, bỏ qua hàng chờ');}
   else{newTransfer('khan',false);log('chuyen_duoc_si','TỰ LÀM','KHẨN, bỏ qua hàng chờ, hạn '+SLA.khan+' phút');}
@@ -552,6 +559,7 @@ function answer(qi,oi){
 /* ================= SỬA (G9) & PHẢN HỒI (G15) ================= */
 function removeDanger(){
   const removed=S.facts.danger.splice(0);if(!removed.length)return;
+  S.facts.poison=false;
   S.removedDanger.push(...removed);
   const shown=removed.map(d=>S.quotes['d:'+d]||d).join('”, “');
   S.corrections.push({t:now(),text:'khách sửa: bỏ dấu hiệu “'+shown+'”'});
@@ -583,7 +591,7 @@ const AI_SYS=`Bạn là bộ trích thông tin cho trợ lý kênh chat "Hỏi d
 Quy tắc:
 - target: ai là người SẼ DÙNG THUỐC (không phải người nhắn). "child" nếu dưới 12 tuổi (con, bé, cháu, thằng cu, cái Tý…); "elderly" nếu từ 65 tuổi hoặc ông, bà, bố mẹ đã già; "pregnant" nếu đang mang thai; "breastfeeding" nếu đang cho con bú; "self" nếu người nhắn tự dùng và là người lớn; "unknown" nếu không rõ. target_quote: cụm từ NGUYÊN VĂN trong tin cho biết điều đó, "" nếu không có.
 - age_months: CHỈ dùng cho trẻ dưới 12 tuổi, đổi ra tháng (3 tuổi = 36, 18 tháng = 18), ngược lại null. age_years: CHỈ dùng cho người từ 12 tuổi trở lên, ngược lại null.
-- danger_signs: mọi dấu hiệu cần đi khám hoặc cấp cứu ngay, kể cả cách nói dân dã: lừ đừ, li bì, ngủ nhiều gọi không dậy, lơ mơ, co giật, khó thở, thở rít, tím tái, đau ngực, ngất, nôn ra máu, phân đen, cứng cổ, méo miệng, yếu nửa người, sưng môi hoặc mặt sau khi dùng thuốc, trẻ bỏ bú, trẻ dưới 3 tháng bị sốt, ra huyết hoặc đau bụng nhiều khi mang thai. sign: tên dấu hiệu ngắn gọn; quote: cụm từ NGUYÊN VĂN trong tin. Bỏ qua dấu hiệu bị phủ định (ví dụ "không khó thở"). Không có thì [].
+- danger_signs: mọi dấu hiệu cần đi khám hoặc cấp cứu ngay, kể cả cách nói dân dã: lừ đừ, li bì, ngủ nhiều gọi không dậy, lơ mơ, co giật, khó thở, thở rít, tím tái, đau ngực, ngất, nôn ra máu, phân đen, cứng cổ, méo miệng, yếu nửa người, sưng môi hoặc mặt sau khi dùng thuốc, trẻ bỏ bú, trẻ dưới 3 tháng bị sốt, ra huyết hoặc đau bụng nhiều khi mang thai. Uống nhầm thuốc, uống quá liều, nuốt phải hoá chất, pin hoặc dị vật cũng là dấu hiệu nguy hiểm, KỂ CẢ KHI người bệnh chưa có biểu hiện gì. sign: tên dấu hiệu ngắn gọn; quote: cụm từ NGUYÊN VĂN trong tin. Bỏ qua dấu hiệu bị phủ định (ví dụ "không khó thở"). Không có thì [].
 - symptoms: triệu chứng thông thường, mỗi cái 1–3 từ.
 - rx_requested: CHỈ thuốc phải có đơn của bác sĩ (kháng sinh, thuốc huyết áp, corticoid, thuốc ngủ, thuốc tiểu đường, thuốc giảm đau gây nghiện…) mà khách ĐÒI MUA. Thuốc không kê đơn (hạ sốt, thuốc ho, thuốc cảm, vitamin, viên ngậm họng…) KHÔNG đưa vào rx_requested. Thuốc khách ĐANG DÙNG thì đưa vào current_meds, không đưa vào rx_requested.
 - days: số ngày đã bị (1 tuần = 7), null nếu không nói.
@@ -614,6 +622,7 @@ function applyAI(j,f,q,text){
   const verb=x=>x&&low.includes(String(x).toLowerCase())?x:null;
   const SPECIAL=['child','pregnant','breastfeeding','elderly'];
   const ds=(j.danger_signs||[]).filter(d=>d&&d.sign);
+  if(ds.some(d=>/uống nhầm|quá liều|ngộ độc|nuốt phải|hóc/i.test(d.sign+' '+(d.quote||''))))f.poison=true;
   if(ds.length){
     if(f.danger.length)skip.push('dấu hiệu nguy hiểm: luật từ khoá đã bắt được, AI đồng ý');
     else ds.forEach(d=>{const k='AI: '+d.sign;if(S.removedDanger.includes(k))return;f.danger.push(k);const vq=verb(d.quote);q['d:'+k]=vq||d.sign;add.push(vq?'dấu hiệu nguy hiểm “'+vq+'”':'dấu hiệu nguy hiểm “'+d.sign+'” (AI suy ra, không trích được nguyên văn)');});
@@ -684,6 +693,7 @@ function dsAccept(){
 }
 function dsDraftText(){
   const f=S.facts;
+  if(S.path==='EMERG'&&!S.emerg.corrected&&f.poison)return'Chào bạn, mình là dược sĩ Minh Anh. Bạn đưa '+(f.target==='child'?'bé':'người bệnh')+' đi cấp cứu ngay và mang theo lọ thuốc nhé, đừng tự gây nôn. Bạn đang ở gần cơ sở y tế nào? Mình gọi cho bạn ngay bây giờ được không?';
   if(S.path==='EMERG'&&!S.emerg.corrected)return'Chào bạn, mình là dược sĩ Minh Anh. '+(f.target==='child'?'Bé đang '+(f.danger.map(d=>S.quotes['d:'+d]||d).join(', '))+' nên bạn đưa bé đi khám ngay giúp mình nhé':(f.target==='elderly'?'Với dấu hiệu bạn kể, bạn đưa người nhà đi khám ngay giúp mình nhé':'Với dấu hiệu bạn kể, bạn đi khám ngay giúp mình nhé'))+', đừng chờ thêm thuốc. Bạn đang ở gần cơ sở y tế nào? Mình gọi cho bạn ngay bây giờ được không?';
   if(f.target==='pregnant')return'Chào bạn, mình là dược sĩ Minh Anh. Mẹ bầu 3 tháng bị sổ mũi 2 ngày, không sốt thì bạn có thể rửa mũi bằng nước muối biển xịt mũi, an toàn trong thai kỳ. Bạn tránh tự dùng thuốc cảm tổng hợp. Nếu sốt, khó thở hoặc sau 3 ngày chưa đỡ, bạn đi khám giúp mình nhé.';
   if(f.target==='child')return'Chào bạn, mình là dược sĩ Minh Anh. Mình đã đọc tóm tắt của trợ lý. Bạn cho mình biết thêm cân nặng của bé và tên thuốc hạ sốt bé đã uống, uống lúc mấy giờ nhé.';
@@ -761,6 +771,7 @@ const ACT={
   dsAttach:()=>{S.dsAttach=!S.dsAttach;},
   dsCall:()=>{addSys('(mô phỏng) '+DS_NAME+' đang gọi cho bạn…');log('chuyen_duoc_si','—','dược sĩ gọi lại cho khách');},
   aiDownload:()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(AI.log,null,2)],{type:'application/json'}));a.download='ai-call-log.json';a.click();},
+  poisonCall:()=>{addSys('(mô phỏng) Đang gọi Trung tâm Chống độc 1800 0001 (số mô phỏng)…');log('khuyen_di_kham','—','khách bấm gọi Trung tâm Chống độc');},
   wait:()=>addAI('Được ạ, mình giữ chỗ của bạn trong hàng chờ.'),
   store:()=>addAI('Cửa hàng Nguyễn Trãi (mô phỏng), 0,8 km, mở đến 23:00. Dược sĩ tại quầy tư vấn trực tiếp.')
 };
@@ -803,8 +814,9 @@ function renderPinned(){
   if(S.emerg){
     if(!S.emerg.corrected){
       h+='<div class="emerg"'+A(4)+'><h3>⚠ Cần đi khám ngay</h3><div>'+esc(cap(whoLabel()))+' có dấu hiệu nguy hiểm. Gọi 115 hoặc đến cơ sở y tế gần nhất, đừng chờ thuốc qua chat.</div>'+
-        '<div class="btns">'+btn('Gọi 115','call115',null,'danger')+btn('Cơ sở y tế gần nhất','clinic')+btn('Mình đang đi khám','going')+'</div>'+
-        '<div class="btns">'+btn('Không đúng, '+(S.facts.target==='child'?'bé':(['self','pregnant','breastfeeding'].includes(S.facts.target)?'tôi':'người bệnh'))+' không “'+S.facts.danger.map(d=>S.quotes['d:'+d]||d).join(', ')+'”','notDanger',null,'small ghost',10)+'</div>'+
+        (S.facts.poison?'<div class="box red" style="margin:8px 0 0">Nghi ngộ độc: mang theo lọ thuốc. <b>Đừng tự gây nôn</b> khi chưa có hướng dẫn của nhân viên y tế.</div>':'')+
+        '<div class="btns">'+btn('Gọi 115','call115',null,'danger')+(S.facts.poison?btn('Gọi Trung tâm Chống độc','poisonCall',null,'danger'):'')+btn('Cơ sở y tế gần nhất','clinic')+btn('Mình đang đi khám','going')+'</div>'+
+        '<div class="btns">'+btn('Không đúng, '+(S.facts.target==='child'?'bé':(['self','pregnant','breastfeeding'].includes(S.facts.target)?'tôi':'người bệnh'))+(S.facts.poison?' không uống nhầm thuốc':' không “'+S.facts.danger.map(d=>S.quotes['d:'+d]||d).join(', ')+'”'),'notDanger',null,'small ghost',10)+'</div>'+
         (S.emerg.ack?'<div class="meta" style="margin-top:6px">✔ '+(S.emerg.ack==='call'?'Bạn đã bấm gọi 115':'Bạn xác nhận đang đi khám')+'. Dược sĩ vẫn gọi lại cho bạn.</div>':'')+'</div>';
     }else{
       h+='<div class="emerg soft"><h3>Đã bỏ dấu hiệu nguy hiểm theo lời bạn sửa</h3><div>Nếu '+esc(dangerHint())+', hãy gọi 115 ngay.</div><div class="btns">'+btn('Gọi 115','call115',null,'danger small')+'</div></div>';
@@ -970,7 +982,7 @@ const PLAYS={
   3:[()=>answer(0,0),()=>answer(1,0),()=>answer(2,0),()=>dsApprove()],
   '3a':[()=>answer(0,0),()=>answer(1,0),()=>answer(2,0)],
   '2b':[()=>answer(0,2)],
-  'k1':[()=>answer(0,0)],'k1b':[()=>answer(0,1)],'k2':[],
+  'k1':[()=>answer(0,0)],'k1b':[()=>answer(0,1)],'k2':[],7:[],
   4:[],5:[()=>{S.hold='held';}]
 };
 function boot(){
