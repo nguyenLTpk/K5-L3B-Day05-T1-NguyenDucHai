@@ -47,16 +47,47 @@ Với mỗi kịch bản đắt nhất:
 ---
 
 ## §4. Mức tự chủ  (chặng 4)
-*(Người C phụ trách)*
 Với mỗi tool:
-- Mức của nhóm (tự làm / cần người duyệt / cấm). Nếu cần người duyệt: ai duyệt · người duyệt thấy gì · quá hạn thì sao.
-- Lý do theo cost-of-error: sai thì ai chịu gì · đảo lại được không · chờ người thì mất gì.
-- Phương án đã cân nhắc và vì sao loại.
+
+- khuyen_di_kham:
+  + Mức: tự làm.
+  + Lý do theo cost-of-error: Báo nhầm chỉ làm khách tốn công tắt thông báo (đảo được ngay), nhưng chờ người duyệt thì khách lỡ thời gian vàng cấp cứu dẫn đến tử vong (không đảo được).
+  + Phương án đã cân nhắc: Cần dược sĩ duyệt; loại vì đêm muộn không ai duyệt kịp khiến khách chết trong hàng chờ.
+
+- chuyen_duoc_si:
+  + Mức: tự làm.
+  + Lý do theo cost-of-error: Chuyển nhầm ca nhẹ thì dược sĩ chỉ mất 1 phút đọc lướt (rất rẻ), nhưng không chuyển ca khó như trẻ em hoặc bà bầu thì khách dùng sai thuốc nguy hiểm tính mạng (rất đắt).
+  + Phương án đã cân nhắc: Cần khách bấm duyệt; loại vì khách đang đau đớn hoảng loạn có thể bỏ qua nút bấm khiến ca khó bị kẹt lại với AI.
+
+- luu_ghi_chu_suc_khoe:
+  + Mức: cần người duyệt. Khách hàng duyệt; khách thấy tóm tắt thông tin sức khỏe sẽ lưu kèm ô xác nhận đồng ý; nếu quá hạn hoặc khách không bấm thì hủy bỏ, không lưu.
+  + Lý do theo cost-of-error: Dữ liệu y tế lộ lọt là vi phạm pháp luật và không rút lại được; bắt khách xác nhận chỉ mất vài giây và không ảnh hưởng tính mạng.
+  + Phương án đã cân nhắc: Tự làm; loại vì vi phạm luật bảo vệ dữ liệu cá nhân.
+
+- ban_thuoc_ke_don:
+  + Mức: cấm.
+  + Lý do theo cost-of-error: Bán thuốc kê đơn không đơn là vi phạm pháp luật hình sự, gây ngộ độc và biến chứng nguy hiểm không thể thu hồi.
+  + Phương án đã cân nhắc: Cần dược sĩ duyệt trên chat; loại vì quy trình bán thuốc kê đơn bắt buộc thẩm định qua cổng chuyên dụng, chatbot không có thẩm quyền xử lý.
+
+- goi_y_san_pham:
+  + Mức: cần người duyệt. Dược sĩ trực online duyệt; dược sĩ thấy tin nhắn của khách, tóm tắt triệu chứng, thẻ sản phẩm AI đề xuất kèm liều lượng và cảnh báo; nếu quá hạn sau 3 phút thì chuyển hẳn cuộc chat sang dược sĩ gọi lại, không tự tiện hiện nút đặt hàng cho khách.
+  + Lý do theo cost-of-error: Khách không có chuyên môn y tế, nếu để AI tự gợi ý lung tung thì khách tin tưởng bấm mua ngay trong đêm, uống vào người là không đảo lại được; bắt dược sĩ duyệt chỉ tốn 1-2 phút nhưng chặn đứng nguy cơ mua nhầm và ngộ độc thuốc.
+  + Phương án đã cân nhắc:
+    * Tự làm: Loại vì AI gợi ý lung tung khách tự bấm mua đêm uống vào nguy hiểm tính mạng (như ca K1 trẻ nhỏ, K4 bà bầu).
+    * Khách hàng tự duyệt: Loại vì khách không có kiến thức y khoa, không thể tự thẩm định đơn thuốc.
+
 Thêm:
-- Tool khó xếp nhất: mỗi người từng chọn gì, cái giá của mỗi phía (trỏ về kịch bản ở §2), nhóm chốt thế nào.
-- Thử mức đã đặt trên 2 kịch bản đắt nhất + 1 kịch bản bình thường: cái sai có bị chặn không? còn việc nào làm khi lẽ ra phải hỏi? người dùng bình thường có phải chờ vô ích không?
-- Luật thêm hoặc tool tách bước (nếu có), và vì sao.
-- Một mức tự chủ đã đổi lời hứa nào với người dùng.
+
+- Tool khó xếp nhất: goi_y_san_pham.
+  + Ý kiến muốn tự làm: Để khách mua hàng nhanh lúc đêm muộn, không bắt khách chờ. Cái giá: AI gợi ý lung tung, khách bấm mua uống phải thuốc chống chỉ định (như ca K1 trẻ nhỏ uống paracetamol người lớn gây suy gan) là không thu hồi được.
+  + Ý kiến muốn cấm: Cấm AI gợi ý mọi sản phẩm để an toàn tuyệt đối. Cái giá: Chatbot thành vô dụng, khách cần mua đồ cơ bản như nước muối sinh lý (ca K3) hay bông băng cũng bị chặn khiến khách bỏ đi.
+  + Nhóm chốt: Đặt mức cần người duyệt (dược sĩ duyệt thẻ gợi ý trước khi hiển thị nút đặt hàng cho khách); riêng vật tư y tế không phải thuốc thì cho phép hiển thị kèm khuyến cáo.
+- Thử mức đã đặt trên 2 kịch bản đắt nhất + 1 kịch bản bình thường:
+  + K2 (đau ngực cấp cứu): Cái sai bị chặn hoàn toàn vì khuyen_di_kham tự làm hiện banner 115 ngay; AI không làm việc lẽ ra phải hỏi; khách không phải chờ đợi.
+  + K1 (trẻ nhỏ sốt cao): Cái sai bị chặn vì goi_y_san_pham bắt buộc dược sĩ duyệt và chuyen_duoc_si tự kích hoạt chuyển dược sĩ ngay, không để khách mua lung tung; AI chỉ hỏi nhanh tuổi và cân nặng; khách phải chờ dược sĩ nhưng thời gian này là cần thiết cho an toàn.
+  + K3 (nước muối sinh lý): Cái sai bị chặn nhờ timestamp tồn kho; đây là vật tư y tế thông thường nên được duyệt hiển thị nhanh; người bình thường không phải chờ vô ích.
+- Luật thêm hoặc tool tách bước: Thêm luật bắt buộc dược sĩ duyệt thẻ gợi ý thuốc trước khi hiện nút đặt mua; cấm hiển thị nút đặt mua thuốc với trẻ dưới 6 tuổi và phụ nữ có thai.
+- Một mức tự chủ đã đổi lời hứa nào với người dùng: Đổi lời hứa từ "AI tự chẩn đoán và bán thuốc tức thì" thành "AI tiếp đón, sàng lọc sơ bộ và có dược sĩ kiểm soát an toàn trước khi đưa thuốc cho bạn".
 
 ---
 
