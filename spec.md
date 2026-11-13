@@ -4,9 +4,9 @@
 
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
-| Lê Thành Nguyên | 2A202603733 | Người A: Dựng prototype (§5), tiêu chí nghiệm thu (§6) |
+| Lê Thành Nguyên | 2A202603733 | Dựng prototype (§5), tiêu chí nghiệm thu (§6) |
 | [Họ tên Người B] | [Mã HV] | Người B: Lát cắt & phạm vi (§1), UX khi AI sai (§3) |
-| Nguyễn Minh Đức | 2A202603960 | Người C: Kịch bản rủi ro (§2), Mức tự chủ (§4), Demo (§7) |
+| Nguyễn Minh Đức | 2A202603960 | Kịch bản rủi ro (§2), Mức tự chủ (§4), Demo (§7) |
 
 ---
 
