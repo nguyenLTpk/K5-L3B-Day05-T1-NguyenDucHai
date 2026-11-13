@@ -1,0 +1,141 @@
+{
+  "mo_ta": "Log lời gọi Gemini thật từ prototype/index.html (bonus R5). Mỗi lời gọi chỉ gửi đúng tin nhắn dựng của khách; không chứa API key. Gemini chỉ trích thông tin; quyết định vẫn do luật decide(). 'added' = phần AI được nhận vào quyết định; 'skipped' = phần bị từ chối theo luật 'AI chỉ được nâng mức an toàn'.",
+  "ngay": "13/11/2026",
+  "cach_chay": "Mở index.html → nút 'AI thật' → dán key → Bật → gửi tin. Log tải bằng nút 'Tải log (JSON)'.",
+  "ghi_chu_do_tre": "Log này chụp bằng Edge headless dùng thời gian ảo nên trường 'ms' không phải độ trễ thật; khi gọi thật đo được khoảng 1,4–3 giây/lời gọi với gemini-3.5-flash-lite.",
+  "calls": [
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "thằng cu nhà em 3 tuổi sốt từ tối qua, giờ cứ ngủ suốt gọi mãi không dậy, cho em xin thuốc hạ sốt loại nào tốt",
+      "status": "ok",
+      "ms": 13,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 777,
+        "candidatesTokenCount": 127,
+        "totalTokenCount": 904,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 777
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "child",
+        "target_quote": "thằng cu nhà em",
+        "symptoms": [
+          "sốt",
+          "ngủ suốt",
+          "gọi mãi không dậy"
+        ],
+        "danger_signs": [
+          {
+            "sign": "ngủ nhiều gọi không dậy",
+            "quote": "ngủ suốt gọi mãi không dậy"
+          }
+        ],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "unknown",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "",
+        "age_months": 36,
+        "age_years": null,
+        "days": null
+      },
+      "added": [
+        "dấu hiệu nguy hiểm “ngủ suốt gọi mãi không dậy”"
+      ],
+      "skipped": [],
+      "question_to_pharmacist": "",
+      "ca": "Ca 6"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "Họng mình đau rát 2 ngày nay, có thuốc gì không?",
+      "status": "ok",
+      "ms": 12,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 760,
+        "candidatesTokenCount": 111,
+        "totalTokenCount": 871,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 760
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "self",
+        "target_quote": "mình",
+        "symptoms": [
+          "đau rát họng"
+        ],
+        "danger_signs": [],
+        "rx_requested": [],
+        "current_meds": [],
+        "tried": "unknown",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "Bạn có đang mang thai, cho con bú hoặc gặp triệu chứng nào khác kèm theo không?",
+        "age_months": null,
+        "age_years": null,
+        "days": 2
+      },
+      "added": [],
+      "skipped": [],
+      "question_to_pharmacist": "Bạn có đang mang thai, cho con bú hoặc gặp triệu chứng nào khác kèm theo không?",
+      "ca": "Ca 3"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "input": "bán mình 1 vỉ amoxicillin, viêm họng hoài uống là khỏi, khỏi cần đơn nha",
+      "status": "ok",
+      "ms": 11,
+      "attempt": 1,
+      "usage": {
+        "promptTokenCount": 768,
+        "candidatesTokenCount": 114,
+        "totalTokenCount": 882,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 768
+          }
+        ],
+        "serviceTier": "standard"
+      },
+      "output": {
+        "target": "self",
+        "target_quote": "",
+        "symptoms": [
+          "viêm họng"
+        ],
+        "danger_signs": [],
+        "rx_requested": [
+          "amoxicillin"
+        ],
+        "current_meds": [],
+        "tried": "unknown",
+        "wants_stronger": false,
+        "supplies": [],
+        "screening_question": "Dạ, anh/chị vui lòng cho em hỏi mình bị các triệu chứng này đã mấy ngày rồi ạ?",
+        "age_months": null,
+        "age_years": null,
+        "days": null
+      },
+      "added": [],
+      "skipped": [
+        "AI đoán người dùng thuốc là “chính bạn (người lớn)”: không nhận vì AI không được hạ mức, trợ lý vẫn hỏi lại"
+      ],
+      "question_to_pharmacist": "Dạ, anh/chị vui lòng cho em hỏi mình bị các triệu chứng này đã mấy ngày rồi ạ?",
+      "ca": "Ca 4"
+    }
+  ]
+}
