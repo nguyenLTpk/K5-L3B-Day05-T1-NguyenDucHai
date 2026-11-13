@@ -5,15 +5,46 @@
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
 | Lê Thành Nguyên | 2A202603733 | Dựng prototype (§5), tiêu chí nghiệm thu (§6) |
-| [Họ tên Người B] | [Mã HV] | Người B: Lát cắt & phạm vi (§1), UX khi AI sai (§3) |
+| Lê Hải Anh | 2A202603986 | Lát cắt & phạm vi (§1), UX khi AI sai (§3) |
 | Nguyễn Minh Đức | 2A202603960 | Kịch bản rủi ro (§2), Mức tự chủ (§4), Demo (§7) |
 
 ---
 
 ## §1. Lát cắt & phạm vi
-*(Người B phụ trách)*
-- Lát cắt (chép từ track).
-- 3 việc tính năng KHÔNG làm, mỗi việc một câu vì sao.
+
+> Phụ trách: **Lê Hải Anh (2A202603986)**.
+
+### 1.1 Lát cắt (chép từ track T1)
+
+Trong **kênh chat Hỏi dược sĩ của Pharmacity**, khi **khách** đang nhắn hỏi "tôi (hoặc người nhà) bị X, có thuốc gì không", **AI tự trả lời và gợi ý sản phẩm, hỏi thêm câu sàng lọc, hay chuyển dược sĩ, khuyên đi khám ngay**, để người dùng thuốc không nhận sai sản phẩm và ca nguy hiểm không nằm trong hàng chờ.
+
+| Sản phẩm | Một người dùng | Một việc | Một quyết định của AI | Một kết quả |
+|---|---|---|---|---|
+| kênh chat Hỏi dược sĩ của Pharmacity | khách | nhắn hỏi "tôi (hoặc người nhà) bị X, có thuốc gì không" | tự trả lời và gợi ý sản phẩm, hỏi thêm câu sàng lọc, hay chuyển dược sĩ, khuyên đi khám ngay | người dùng thuốc không nhận sai sản phẩm và ca nguy hiểm không nằm trong hàng chờ |
+
+### 1.2 Đọc đề: AI được thêm quyền gì, sai thì ai chịu
+
+- **Hôm nay** (mục "Sản phẩm thật hôm nay"): AI chỉ trả lời giá, tồn kho, khuyến mãi, nhận ảnh bao bì. Câu chuyên môn được chuyển cho dược sĩ, nhưng công khai chưa nói AI dựa vào dấu hiệu nào để chuyển, và khi chuyển thì khách thấy gì.
+- **Khi tích hợp AI**, AI được thêm một quyền mới: **tự chọn đường đi cho ca** (gợi ý / hỏi / chuyển / khuyên khám). Nói cách khác, AI quyết định ca nào vào hàng chờ, ca nào được bảo đi cấp cứu, và ca nào nhận nút đặt thuốc.
+- **Sai thì ai chịu:**
+  - *Người dùng thuốc* chịu hại sức khoẻ, không đảo được khi thuốc đã uống. Người này thường **không phải người đang nhắn** (con nhỏ, cha mẹ già).
+  - *Khách nhắn* mất niềm tin.
+  - *Dược sĩ* chịu trách nhiệm chuyên môn cho cuộc chat mình chưa thấy.
+  - *Chuỗi nhà thuốc* chịu rủi ro pháp lý: bán thuốc kê đơn, lộ dữ liệu sức khoẻ.
+- **Sai hướng nào đắt hơn:** sai "lỏng" đắt hơn hẳn sai "chặt". Sai lỏng là gợi ý thuốc khi lẽ ra phải chuyển, hoặc để ca nguy hiểm nằm trong hàng chờ. Sai chặt là chuyển dược sĩ thừa hay khuyên khám thừa, và track ghi rõ việc đó "chỉ tốn vài phút". ⇒ **Khi không chắc, nghiêng về phía chặt.**
+- **Tool không đảo được:**
+  - `goi_y_san_pham` (khi thuốc đã dùng) và `ban_thuoc_ke_don`.
+  - `luu_ghi_chu_suc_khoe` xoá được, nhưng đã lộ thì không rút lại được.
+- **Việc khách sẽ đòi mà không tool nào làm:** nói liều, chẩn đoán, gọi cấp cứu thay khách. AI phải nói rõ là không làm, rồi đưa đường lui.
+
+### 1.3 Những việc tính năng KHÔNG làm
+
+| # | Không làm | Vì sao | Prototype giữ đúng ở đâu |
+|---|---|---|---|
+| 1 | **Không nói liều dùng**, kể cả khi khách hỏi thẳng "bé uống mấy ml" | Liều cho trẻ tính theo cân nặng và dạng thuốc. AI không có cân nặng chắc chắn, và sai liều hạ sốt ở trẻ gây hại không đảo được (§2 K1). AI chỉ dẫn khách về nhãn thuốc hoặc dược sĩ | §6 TC3. Câu hỏi do AI thật đề xuất bị bỏ nếu có liều (§5.5 e) |
+| 2 | **Không chẩn đoán, không gọi tên bệnh** (không nói "có thể là nhồi máu cơ tim", "sốt xuất huyết") | AI chỉ thấy vài dòng chữ. Gọi tên bệnh sai làm khách yên tâm sai hoặc hoảng sai. Việc của AI trong lát cắt là **chọn đường đi**, không phải chẩn đoán | Thẻ đỏ ④ chỉ nói "dấu hiệu cần bác sĩ khám ngay" và trích lại đúng lời khách |
+| 3 | **Không bán, không gợi ý "thuốc thay thế" cho thuốc kê đơn** | `ban_thuoc_ke_don` không đảo được và ngoài thẩm quyền của kênh chat tự động. Gợi ý "thay thế" chỉ là đường vòng dẫn tới cùng cái sai đó | ⑧ không có nút mua, chỉ có đường lui |
+| 4 | **Không tự gọi 115 hay gửi vị trí thay khách** | Không có tool nào làm việc này. Gọi nhầm làm tốn xe cấp cứu của người khác. AI chỉ khuyên đi khám và đưa nút để **khách tự bấm** | Nút "Gọi 115" ở ④ do khách bấm |
 
 ---
 
@@ -36,13 +67,156 @@
 ---
 
 ## §3. Khi AI sai  (chặng 3)
-*(Người B phụ trách)*
-Với mỗi kịch bản đắt nhất:
-- AI nói gì (nguyên văn) · người dùng thấy gì · làm gì tiếp · ai được báo, sau bao lâu.
-- Quyết định: hỏi lại / trả lời kèm giới hạn / dừng và chuyển người — chọn cách nào, đã loại cách nào, vì sao.
-- Loại lỗi (hệ thống / người dùng / ngữ cảnh) và vì sao cách nói, cách sửa đi theo loại đó.
-- 2–3 nguyên tắc HAX/PAIR, mỗi cái trỏ vào một chỗ cụ thể (câu chữ hoặc chỗ trên màn hình).
-- Lỗi nào sửa câu chữ không cứu được (nếu có), và thiết kế cứu nó thế nào.
+
+> Phụ trách: **Lê Hải Anh (2A202603986)**.
+>
+> §3 làm cho 2 kịch bản đắt nhất ở §2: **K2** (ba 65 tuổi đau tức ngực, khó thở) và **K1** (con sốt 39,5 độ, không nói tuổi). Mọi câu AI nói dưới đây là **nguyên văn trong prototype** (`prototype/index.html`). Nhóm đã gõ đúng tin K1, K2 vào ô chat để kiểm. Các số ①–⑮ là số chú thích ở §5.2.
+
+### 3.0 Bốn đường đi của lát cắt
+
+| Đường | Ca | Prototype làm gì |
+|---|---|---|
+| Happy path | K3 / Ca 5: hỏi nước muối | Trợ lý tự trả lời tồn kho, ghi rõ giờ cập nhật dữ liệu |
+| Low-confidence (②) | **K1**: không nói tuổi, cân nặng | Chuyển dược sĩ, hỏi tối đa 2 câu trong lúc chờ |
+| Failure / không có căn cứ (①④) | **K2**: có dấu hiệu cấp cứu, AI không có căn cứ nào để gợi ý thuốc | Dừng, khuyên đi khám ngay, báo dược sĩ KHẨN |
+| Correction | Khách bấm "Không đúng" ⑩, hoặc chọn một dấu hiệu trong lúc chờ | Lời sửa chỉ đưa ca về phía an toàn hơn (sàn an toàn, §5.5 f) |
+
+### 3.1 K2: "Ba mình 65 tuổi, đang đau tức ngực trái lan lên cằm, vã mồ hôi, khó thở, có thuốc ngậm nào đỡ đau không?"
+
+**Cái sai cần chặn (§2 K2):** có hai cách sai.
+- AI làm đúng điều khách xin, tức là gọi `goi_y_san_pham` gợi ý thuốc ngậm đỡ đau.
+- Hoặc AI gọi `chuyen_duoc_si` nhưng xếp ca vào hàng chờ thường.
+
+Cả hai đều để một ca có thể là cấp cứu tim mạch nằm lại trong chat.
+
+**AI nói (nguyên văn, ngay ở tin đầu tiên, trước mọi câu hỏi):**
+
+> Người nhà của bạn có dấu hiệu "khó thở", "tức ngực", đây là dấu hiệu cần bác sĩ khám ngay. Bạn hãy gọi 115 hoặc đưa người nhà của bạn đến cơ sở y tế gần nhất ngay bây giờ, đừng chờ thuốc qua chat. Mình đã báo dược sĩ trực (khẩn, không xếp hàng) để gọi lại cho bạn, nhưng bạn đừng đợi dược sĩ rồi mới đi.
+
+**Người dùng thấy:**
+- **Thẻ đỏ ④ "⚠ Cần đi khám ngay"** ghim ở đầu chat, có 3 nút: *Gọi 115* · *Cơ sở y tế gần nhất* · *Mình đang đi khám*. **Không có thẻ sản phẩm, không có nút đặt.**
+- **Thanh ⑤ "Chuyển dược sĩ · KHẨN"**, ghi "ca khẩn: không huỷ được".
+- **Mục ③ "Vì sao trợ lý trả lời vậy?"**, gồm:
+  - "Người dùng thuốc: người lớn tuổi (từ "Ba mình")";
+  - "Dấu hiệu nguy hiểm: "khó thở", "tức ngực"";
+  - luật đã áp dụng: "Có dấu hiệu nguy hiểm → khuyên đi khám ngay và báo dược sĩ khẩn. Không hỏi sàng lọc trước, không gợi ý sản phẩm."
+- **① ở đầu khung chat:** "Bạn đang nói chuyện với trợ lý AI, chưa phải dược sĩ."
+
+**Người dùng làm gì tiếp:**
+- Bấm *Gọi 115*, *Cơ sở y tế gần nhất* (danh sách nơi có cấp cứu 24/7, kèm câu "Nếu không tự đi được, hãy gọi 115"), hoặc *Mình đang đi khám*.
+- Nếu khách nhắn tiếp "vậy uống gì cho đỡ", AI không gợi ý thuốc mà nhắc lại: *"Mình đã thêm thông tin này vào tóm tắt cho dược sĩ. Bạn đừng chờ trả lời qua chat: gọi 115 hoặc đến cơ sở y tế gần nhất ngay."*
+- Nếu AI hiểu sai, khách bấm "Trợ lý hiểu sai chỗ nào?" ⑪ hoặc "Không đúng" trên thẻ đỏ ⑩.
+- **Nếu khách không làm gì:** thẻ đỏ vẫn ghim, không bị trôi. Dược sĩ có hạn 2 phút để nhận ca. Quá hạn, khách nhận thêm tin *"Dược sĩ chưa kịp gọi lại cho bạn. Đừng chờ: hãy gọi 115 hoặc đến cơ sở y tế gần nhất ngay bây giờ."* kèm nút Gọi 115.
+
+**Ai được báo, sau bao lâu, người đó thấy gì:**
+- **Dược sĩ trực**, ngay lúc khách gửi tin. Ca KHẨN đứng đầu hàng chờ ⑫, có đồng hồ chờ và hạn 2 phút.
+  - Thấy tóm tắt kèm trích nguyên văn lời khách.
+  - Thấy nhật ký ⑬: `khuyen_di_kham` TỰ LÀM · `chuyen_duoc_si` TỰ LÀM, KHẨN · `goi_y_san_pham` BỊ CHẶN (dấu hiệu nguy hiểm + người lớn tuổi).
+  - Việc của dược sĩ ở ca này là **gọi lại để chắc khách đã gọi 115 hoặc đang đi khám**, không phải tư vấn thuốc.
+- **Dược sĩ trưởng ca**, nếu quá 2 phút chưa ai nhận. Nhật ký ghi: "QUÁ HẠN · báo DS trưởng ca, nhắc lại 115 cho khách".
+
+**Quyết định: dừng và chuyển người (khuyên khám ngay + báo dược sĩ KHẨN cùng lúc)**
+
+| Phương án | Kết luận | Vì sao |
+|---|---|---|
+| Hỏi lại trước ("Đau bao lâu rồi? Có bệnh tim không?") | Loại | Mỗi câu hỏi thêm một lượt chờ, trong khi đau ngực là chuyện tính bằng phút. Câu trả lời cũng **không đổi được quyết định**: người 65 tuổi khó thở và tức ngực thì đằng nào cũng phải đi khám. Hỏi thêm chỉ làm ca nguy hiểm nằm lâu hơn trong chat |
+| Trả lời kèm giới hạn ("Có thể ngậm X cho đỡ, nếu không đỡ thì đi khám") | Loại | Đây đúng là cái sai ở §2 K2. Vế "nếu không đỡ thì đi khám" biến lời khuyên đi khám thành một điều kiện: khách sẽ ngồi chờ xem thuốc có đỡ không và mất thời gian vàng. Thuốc đã ngậm thì không đảo được |
+| Chỉ chuyển dược sĩ, không khuyên khám | Loại | Đây là cách sản phẩm hôm nay xử lý câu chuyên môn. Ca nguy hiểm vẫn vào hàng chờ, trái với kết quả lát cắt đòi hỏi ("ca nguy hiểm không nằm trong hàng chờ") |
+| **Khuyên khám ngay + báo dược sĩ KHẨN cùng lúc** | **Chọn** | Khuyên khám thừa chỉ tốn một chuyến đi khám. Khuyên thiếu có thể mất mạng. Báo dược sĩ cùng lúc để có người thật gọi lại, nhưng câu chữ nói rõ **không chờ dược sĩ rồi mới đi** |
+
+**Câu chữ: vì sao viết vậy, và những câu đã loại:**
+- Câu thứ hai có "đừng chờ thuốc qua chat". Câu này trả lời thẳng điều khách hỏi ("có thuốc ngậm nào"), không lờ đi, để khách không phải hỏi lại.
+- **Loại câu "Dược sĩ sẽ gọi lại trong 2 phút".** Hệ thống không bảo đảm được thời gian đó (§6, lỗi còn lại số 3), và câu này làm khách *ngồi chờ* điện thoại. Câu đã chọn: "để gọi lại cho bạn, nhưng bạn đừng đợi dược sĩ rồi mới đi".
+- **Loại câu "Có thể ông đang bị nhồi máu cơ tim".** AI không chẩn đoán (§1.3, việc không làm số 2). Câu đã chọn chỉ nói "dấu hiệu cần bác sĩ khám ngay" và trích đúng lời khách, để khách thấy AI dựa vào đâu.
+- **Không xin lỗi, không "rất tiếc".** Khách không làm gì sai. Câu giữ ngắn để người đang hoảng vẫn đọc được.
+
+### 3.2 K1: "Con mình sốt cao 39.5 độ từ chiều, có thuốc hạ sốt nào uống đỡ liền không shop?"
+
+**Cái sai cần chặn (§2 K1):** tin nhắn thiếu tuổi và cân nặng (lớp ②). AI có thể sai theo hai cách:
+- gọi `goi_y_san_pham` đưa thuốc hạ sốt dạng viên của người lớn, kèm nút đặt;
+- hoặc tự đoán "bé lớn rồi" để trả lời cho nhanh.
+
+Thuốc đã uống thì không đảo được.
+
+**AI nói (nguyên văn):**
+
+> Vì thuốc dùng cho trẻ nhỏ, trợ lý không tự gợi ý thuốc. Dược sĩ sẽ tư vấn trực tiếp cho bạn. Mình đã chuyển cuộc chat cho dược sĩ trực, thường mất khoảng 2–3 phút. Trong lúc chờ, bạn trả lời nhanh tối đa 2 câu bên dưới để dược sĩ không phải hỏi lại (bỏ qua cũng được). Nếu bé lừ đừ, li bì, co giật, khó thở hoặc bỏ bú, hãy gọi 115 hoặc đi khám ngay, đừng chờ.
+
+Ngay sau đó là thẻ câu hỏi ⑥. Mỗi lần chỉ một câu, trả lời bằng nút, và luôn có nút "Bỏ qua":
+1. "Bé có dấu hiệu nào dưới đây không?" — *Không có dấu hiệu nào* / *Lừ đừ, li bì, co giật* / *Khó thở, thở rít* / *Bỏ bú, không uống được*
+2. "Có đang dùng thuốc khác, có bệnh mạn tính (huyết áp, tiểu đường, gan, thận…) hoặc dị ứng thuốc không?" — *Không* / *Có* / *Không rõ*
+
+**Người dùng thấy:**
+- Thanh ⑤ "Chuyển dược sĩ · ƯU TIÊN", có nút **Huỷ chuyển**.
+- Khung ② "Trợ lý đang hiểu gì về người dùng thuốc · đã biết x/7". Khung này ghi "Người dùng thuốc: bé (từ "Con mình")" và để trống các ô còn thiếu, nên khách thấy rõ **AI chưa biết gì**.
+- Mục ③ ghi luật đã áp dụng.
+- Không có thẻ sản phẩm nào.
+
+**Người dùng làm gì tiếp:**
+- **Trả lời 2 câu, hoặc bấm bỏ qua.** Bỏ qua thì AI không đoán, ca vẫn ở chỗ dược sĩ.
+- **Chọn "Lừ đừ, li bì, co giật"** thì ca chuyển ngay sang đường của K2:
+  - AI nói *"Bé có dấu hiệu "lừ đừ / li bì / co giật", đây là dấu hiệu cần bác sĩ khám ngay. Bạn hãy gọi 115 hoặc đưa bé đến cơ sở y tế gần nhất ngay bây giờ, đừng chờ thuốc qua chat. …"*;
+  - thẻ đỏ ④ hiện ra;
+  - ca lên **KHẨN** và mất nút Huỷ.
+- **Bấm Huỷ chuyển (G8):** AI nói *"Đã huỷ chuyển dược sĩ. Lưu ý: vì thuốc dùng cho trẻ nhỏ, trợ lý vẫn không tự gợi ý thuốc. …"* kèm nút "Nói chuyện với dược sĩ". Huỷ chuyển **không mở lại** đường gợi ý thuốc.
+- **Nếu khách không làm gì:** ca vẫn ở hàng ƯU TIÊN, hạn 3 phút. Quá hạn, AI nói *"Xin lỗi, dược sĩ đang bận hơn bình thường. Bạn có thể chờ thêm (mình đã báo dược sĩ trưởng ca), gọi hotline … hoặc ghé cửa hàng gần nhất."* Không có gợi ý thuốc nào tự gửi đi.
+
+**Ai được báo:**
+- **Dược sĩ trực**, ngay lúc khách gửi tin, mức ƯU TIÊN, hạn 3 phút. Màn hình ⑫ hiện:
+  - tóm tắt ca;
+  - mục "Cần hỏi thêm: tuổi, bao lâu, đã dùng thuốc, thuốc khác / bệnh nền / dị ứng, dấu hiệu nguy hiểm, **cân nặng của bé, tên thuốc và giờ uống lần cuối**";
+  - nhật ký `goi_y_san_pham` BỊ CHẶN (thuốc dùng cho trẻ nhỏ).
+- **Dược sĩ trưởng ca**, nếu quá hạn.
+
+**Quyết định: chuyển người, và hỏi trong lúc chờ (không hỏi trước khi chuyển)**
+
+| Phương án | Kết luận | Vì sao |
+|---|---|---|
+| Hỏi lại trước (tuổi, cân nặng), rồi AI tự gợi ý | Loại | Hỏi đủ rồi thì AI vẫn phải tự chọn thuốc và dạng thuốc cho trẻ. Việc đó trái rubric riêng T1 ý 2 và trái §1.3 việc số 1. Hỏi trước còn bắt người đang lo trả lời 3–4 câu rồi mới được gặp người thật ("đừng bắt mình chờ") |
+| Trả lời kèm giới hạn ("Có thể dùng hạ sốt dạng siro cho trẻ, liều theo nhãn") | Loại | Câu này trông an toàn nhưng vẫn là gợi ý thuốc cho trẻ khi chưa biết tuổi, nên nếu đúng thì cũng là **đúng vì may**. Câu "theo nhãn" không cứu được khách đang cầm vỉ thuốc của người lớn |
+| Chuyển dược sĩ, không hỏi gì | Loại | Dược sĩ phải hỏi lại từ đầu ("người sẽ uống là ai thì khách hay quên nói", lời dược sĩ trong track). Câu hỏi về dấu hiệu nguy hiểm cũng là cách duy nhất để phát hiện K1 thật ra là ca cấp cứu **trước khi** dược sĩ nhận ca |
+| **Chuyển ngay + hỏi tối đa 2 câu trong lúc chờ, bỏ qua được** | **Chọn** | Câu hỏi không chặn đường tới người thật, vì ca đã được chuyển trước khi hỏi. Câu đầu tiên hỏi về **dấu hiệu nguy hiểm**, vì đó là câu duy nhất có thể đổi quyết định (từ ƯU TIÊN lên KHẨN). Tuổi và cân nặng để dược sĩ hỏi: hai thông tin này chỉ dùng để chọn thuốc, mà AI không chọn thuốc |
+
+**Câu chữ: vì sao viết vậy, và những câu đã loại:**
+- **Nói lý do trước, rồi mới nói không gợi ý** ("Vì thuốc dùng cho trẻ nhỏ, …"). Loại câu "Mình không thể tư vấn thuốc": câu đó nghe như AI bị hỏng hoặc né trách nhiệm, khách sẽ nhắn lại nhiều lần hoặc mua ở chỗ khác.
+- **"thường mất khoảng 2–3 phút"**: chữ "thường" cho biết đây là ước lượng, không phải cam kết. Không hứa "ngay".
+- **Câu cuối liệt kê dấu hiệu cụ thể theo người dùng thuốc** (với trẻ: lừ đừ, li bì, co giật, khó thở, bỏ bú). Loại câu chung chung "nếu bé nặng hơn", vì khách không biết thế nào là "nặng hơn".
+- **Không nói "39,5 độ là sốt cao"**: AI không tự đánh giá mức bệnh (§1.3, việc số 2).
+
+### 3.3 Loại lỗi, và cách nói, cách sửa theo từng loại
+
+| Loại lỗi | Ví dụ ở K1, K2 | Cách nói | Cách sửa |
+|---|---|---|---|
+| **Lỗi ngữ cảnh** (hệ thống chạy đúng thiết kế "khách hỏi thuốc thì gợi ý thuốc", nhưng sai với tình huống của khách). **Đây là lỗi chính của cả 2 kịch bản đắt nhất** | K2: khách hỏi "thuốc ngậm đỡ đau", AI chỉ làm theo lời thì sẽ gợi ý kẹo ngậm. K1: khách hỏi "hạ sốt nào uống đỡ liền", AI sẽ gợi ý hạ sốt | **Không xin lỗi**, vì AI chưa làm sai điều gì với khách. Thay vào đó **giải thích vì sao không làm điều khách xin**: "đừng chờ thuốc qua chat", "Vì thuốc dùng cho trẻ nhỏ, trợ lý không tự gợi ý thuốc" | **Sửa thiết kế, không sửa câu chữ.** Trong `decide()`, luật dấu hiệu nguy hiểm (luật 1) và luật nhóm đặc biệt (luật 3) được xét **trước** khi `goi_y_san_pham` có cơ hội chạy. Lần bị chặn được ghi vào nhật ký ⑬ |
+| **Lỗi hệ thống** (AI đọc sai tin nhắn) | (a) **Bỏ sót:** luật từ khoá không bắt được cách nói lạ, như "ngủ suốt gọi mãi không dậy" (Ca 6). Ở K2, cụm "lan lên cằm, vã mồ hôi" cũng không được trích ra, nhưng ca vẫn đi đúng đường nhờ có "khó thở", "tức ngực". (b) **Bắt nhầm:** khách dùng chữ "lừ đừ" với nghĩa chỉ là hơi mệt | (b) AI nhận lỗi về phía mình, không đổ cho khách: *"Cảm ơn bạn đã sửa, mình bỏ dấu hiệu "…". … ca của bạn vẫn ở chỗ dược sĩ (mức ưu tiên, không còn khẩn) và trợ lý vẫn không tự gợi ý thuốc."* (a) Khách không biết AI đã bỏ sót, nên **không câu xin lỗi nào cứu được** lỗi này → phải chặn bằng thiết kế (cột bên) | (b) Nút "Không đúng" ⑩ cộng luật sàn an toàn (§5.5 f). (a) Có ba lớp chặn: câu hỏi dấu hiệu nguy hiểm dạng nút trong lúc chờ (K1); AI thật chỉ được nâng mức, không được hạ (§5.5 e); ca nhóm đặc biệt luôn đến tay dược sĩ. Nhờ vậy lỗi bỏ sót rơi vào tay người thật, không rơi vào nút mua |
+| **Lỗi người dùng** (khách nói sai hoặc nói thiếu) | Biến thể của K1: khách viết "mình sốt 39 độ có thuốc gì", nhưng thật ra hỏi cho con. Hoặc khách bấm nhầm "Không có dấu hiệu nào" | Không trách, không hỏi "sao bạn không nói từ đầu". Chỉ xác nhận lại: *"Cảm ơn bạn đã sửa, mình đã cập nhật: người dùng thuốc là trẻ nhỏ. Dược sĩ thấy thông tin mới ngay."* | Khung ② luôn hiện "Người dùng thuốc: …" để khách **thấy** AI đang hiểu sai. Mục ⑪ "Hiểu sai người dùng thuốc" mở lại câu hỏi. Gợi ý đã soạn mà chưa gửi thì bị **rút lại** (nhật ký ghi RÚT LẠI). Gợi ý đã duyệt thì dược sĩ được báo (CẢNH BÁO). Giới hạn: nếu khách không tự sửa thì chưa có gì chặn được (§6, lỗi còn lại số 2) |
+
+### 3.4 Nguyên tắc HAX/PAIR, mỗi nguyên tắc trỏ vào một chỗ
+
+- **G10: thu hẹp phạm vi khi nghi ngờ.** Ở K1, tin nhắn thiếu tuổi. AI không đoán "bé lớn rồi" mà thu về những việc nó chắc làm được: chuyển dược sĩ và hỏi một câu về dấu hiệu nguy hiểm.
+  - *Chỗ trên prototype:* câu "trợ lý không tự gợi ý thuốc" và thẻ câu hỏi ⑥ có nút "Bỏ qua" (ảnh 2, 3).
+  - Khách bỏ qua câu hỏi thì AI vẫn không đoán.
+- **G11: giải thích vì sao.** Ở K2, câu AI nói trích lại đúng lời khách ("khó thở", "tức ngực"), và mục ③ "Vì sao trợ lý trả lời vậy?" ghi luật đã áp dụng.
+  - Người đang hoảng thấy AI dựa vào chính lời mình thì dễ tin lời khuyên đi khám hơn.
+  - Nếu AI hiểu sai, khách thấy ngay chỗ sai và bấm ⑩ để sửa.
+- **PAIR Errors + Graceful Failure: mỗi loại lỗi có một đường lui.**
+  - Thẻ đỏ ④ ở K2: không có nút sản phẩm, có 3 đường lui (115 / cơ sở y tế / đang đi khám).
+  - Tin quá hạn: dược sĩ không kịp nhận thì ca khẩn được nhắc gọi 115, còn ca ưu tiên được đưa hotline hoặc cửa hàng gần nhất.
+  - Huỷ chuyển ở K1 vẫn để lại nút "Nói chuyện với dược sĩ".
+  - Không đường nào kết thúc ở ngõ cụt, và không đường nào kết thúc ở nút mua.
+
+(G1 ở ①, kèm Điều 11 khoản 1 Luật Trí tuệ nhân tạo 134/2025, đã được trỏ ở §5.2.)
+
+### 3.5 Lỗi mà sửa câu chữ không cứu được
+
+**Lỗi: "trả lời kèm giới hạn" ở K2.** Thử viết câu thật khéo: *"Bạn có thể cho ông ngậm X tạm thời, nhưng hãy gọi 115 ngay nếu không đỡ."* Câu cẩn thận đến đâu thì thẻ sản phẩm kèm nút đặt vẫn nằm ngay bên dưới. Người đang hoảng sẽ bấm nút chứ không đọc câu. **Một lời cảnh báo không chặn được một hành động không đảo được.**
+
+**Thiết kế cứu lỗi này thế nào:**
+1. Luật dấu hiệu nguy hiểm đứng **đầu tiên** trong `decide()`, nên `goi_y_san_pham` không bao giờ được gọi. Nhật ký ghi "BỊ CHẶN".
+2. Thẻ đỏ ④ **không hiện nút sản phẩm nào**. Việc bị chặn thì không có nút, chứ không phải có nút kèm cảnh báo.
+3. Câu "Mình đã báo dược sĩ trực" chỉ đúng vì `chuyen_duoc_si` ở mức **tự làm** (§4). Nếu tool này cần người duyệt, cùng câu đó sẽ thành một lời hứa sai. Nghĩa là câu chữ phụ thuộc vào mức tự chủ, không tự đứng một mình được.
+
+Còn một lỗi cùng loại, đã viết ở §5.5 f: lời sửa của khách có thể mở lại nút mua, và chỉ luật "sàn an toàn" mới chặn được.
 
 ---
 
