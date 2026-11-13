@@ -15,7 +15,9 @@ Nút **"Hiện số chú thích"** bật các số ① đến ⑬. Các số nà
 
 | Ca | Tin khách nhắn | Đường đi |
 |---|---|---|
-| **Ca 1** (ca demo bắt buộc) | "con mình 18 tháng sốt 39 độ…, uống hạ sốt rồi mà không hạ, giờ bé cứ lừ đừ, có thuốc gì mạnh hơn không" | Thẻ đỏ "Cần đi khám ngay" + chuyển dược sĩ KHẨN. Trợ lý không gợi ý sản phẩm |
+| **K2** (kịch bản đắt nhất 1) | "Ba mình 65 tuổi, đang đau tức ngực trái lan lên cằm, vã mồ hôi, khó thở, có thuốc ngậm nào đỡ đau không?" | Thẻ đỏ "Cần đi khám ngay" + chuyển dược sĩ KHẨN. Không có thẻ thuốc |
+| **K1** (kịch bản đắt nhất 2) | "Con mình sốt cao 39.5 độ từ chiều, có thuốc hạ sốt nào uống đỡ liền không shop?" | Chuyển dược sĩ ƯU TIÊN, hỏi tối đa 2 câu trong lúc chờ. Chọn "Lừ đừ" thì ca lên KHẨN |
+| Ca 1 | "con mình 18 tháng sốt 39 độ…, uống hạ sốt rồi mà không hạ, giờ bé cứ lừ đừ, có thuốc gì mạnh hơn không" | Thẻ đỏ "Cần đi khám ngay" + chuyển dược sĩ KHẨN. Trợ lý không gợi ý sản phẩm |
 | Ca 2 | "Mình đang bầu 3 tháng, bị cảm sổ mũi 2 hôm…" | Chuyển dược sĩ ƯU TIÊN, hỏi tối đa 2 câu trong lúc chờ. Dược sĩ tự chọn sản phẩm |
 | Ca 3 | "Họng mình đau rát 2 ngày nay, có thuốc gì không?" | Hỏi lần lượt 3 câu, trợ lý soạn gợi ý, **dược sĩ duyệt** rồi mới gửi |
 | Ca 4 | "bán mình 1 vỉ amoxicillin… khỏi cần đơn nha" | Thuốc kê đơn bị **cấm**: không có nút mua, chỉ có đường lui |
@@ -32,13 +34,15 @@ Các nút nên bấm thử khi demo:
 
 | Ảnh | Ca |
 |---|---|
-| [`anh-1-ca-tre-nho.png`](anh-1-ca-tre-nho.png) | Ca 1, trẻ nhỏ có dấu hiệu nguy hiểm *(ảnh chính 1)* |
-| [`anh-2-ca-mang-thai.png`](anh-2-ca-mang-thai.png) | Ca 2, người mang thai *(ảnh chính 2)* |
-| [`anh-3-cho-duoc-si-duyet.png`](anh-3-cho-duoc-si-duyet.png) | Ca 3, gợi ý đang chờ dược sĩ duyệt *(ảnh phụ)* |
-| [`anh-4-thuoc-ke-don.png`](anh-4-thuoc-ke-don.png) | Ca 4, việc bị cấm *(ảnh phụ)* |
+| [`anh-1-k2-dau-nguc.png`](anh-1-k2-dau-nguc.png) | K2, đau ngực *(ảnh chính 1)* |
+| [`anh-2-k1-tre-sot.png`](anh-2-k1-tre-sot.png) | K1, trẻ sốt không nói tuổi *(ảnh chính 2)* |
+| [`anh-3-cho-duoc-si-duyet.png`](anh-3-cho-duoc-si-duyet.png) | Ca 3, gợi ý đang chờ dược sĩ duyệt |
+| [`anh-4-thuoc-ke-don.png`](anh-4-thuoc-ke-don.png) | Ca 4, việc bị cấm |
 | [`anh-5-ai-that-ca-6.png`](anh-5-ai-that-ca-6.png) | Ca 6 có lời gọi Gemini thật *(bằng chứng bonus)* |
+| [`anh-6-ca-1-tre-lu-du.png`](anh-6-ca-1-tre-lu-du.png) | Ca 1, trẻ 18 tháng lừ đừ |
+| [`anh-7-ca-2-mang-thai.png`](anh-7-ca-2-mang-thai.png) | Ca 2, mang thai, có thẻ lưu ghi chú |
 
-Để chụp lại đúng trạng thái trong ảnh, mở `index.html#case=1&play=1&annot=1&shot=1`. Thay `case=` bằng `2`, `3a` (chờ duyệt), `3` (đã duyệt), `4` hoặc `5`. Có thể thêm `say=` kèm một tin nhắn để chạy thử một ca lạ.
+Để chụp lại đúng trạng thái trong ảnh, mở `index.html#case=k2&play=1&annot=1&shot=1`. Thay `case=` bằng `k1`, `k1b` (K1 chọn "Lừ đừ"), `1`, `2`, `3a` (chờ duyệt), `3` (đã duyệt), `4`, `5` hoặc `6`. Có thể thêm `say=` kèm một tin nhắn để chạy thử một ca lạ.
 
 ## Lời gọi AI thật (bonus)
 

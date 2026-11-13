@@ -317,7 +317,7 @@ Trên prototype, lời hứa mới hiện ở mục ① "Trợ lý làm được
 
 ## §5. Prototype  (chặng 5)
 
-> Phụ trách: **Lê Thành Nguyên (2A202603733)**. Chỗ nào phụ thuộc §2, §3, §4 được ghi ở §5.6.
+> Phụ trách: **Lê Thành Nguyên (2A202603733)**. Prototype chạy đúng 2 kịch bản đắt nhất ở §2 (K2, K1), dùng nguyên văn câu AI ở §3 và các mức tự chủ ở §4.
 
 ### 5.1 File, công cụ, phần mock
 
@@ -336,52 +336,72 @@ Trên prototype, lời hứa mới hiện ở mục ① "Trợ lý làm được
   - **Key không nằm trong code hay repo.** Key chỉ giữ trong bộ nhớ của tab và bị xoá khỏi ô nhập ngay khi bấm Bật. Lời gọi chỉ gửi tin dựng.
   - Bằng chứng: [`prototype/ai-call-log.json`](prototype/ai-call-log.json) (3 lời gọi thật, không chứa key) và [`prototype/anh-5-ai-that-ca-6.png`](prototype/anh-5-ai-that-ca-6.png).
 - **Các ca có sẵn trên thanh trên cùng:**
+  - **K2:** ba 65 tuổi đau tức ngực, khó thở (kịch bản đắt nhất 1, §2).
+  - **K1:** con sốt 39,5°C, không nói tuổi (kịch bản đắt nhất 2, §2).
   - Ca 1: trẻ 18 tháng sốt, lừ đừ (ca demo bắt buộc).
   - Ca 2: bầu 3 tháng, sổ mũi.
   - Ca 3: người lớn đau họng 2 ngày.
   - Ca 4: đòi kháng sinh không có đơn.
-  - Ca 5: hỏi nước muối (ca bình thường).
+  - Ca 5: hỏi nước muối (ca bình thường, tương ứng K3).
   - Ca 6: ca lạ "ngủ suốt gọi mãi không dậy", dùng để so sánh có và không có AI thật.
   - Ca lạ: gõ bất kỳ tin nào vào ô chat.
 
 ### 5.2 Ảnh đánh số
 
-Ảnh chính: [`anh-1-ca-tre-nho.png`](prototype/anh-1-ca-tre-nho.png) (Ca 1) và [`anh-2-ca-mang-thai.png`](prototype/anh-2-ca-mang-thai.png) (Ca 2).
+Ảnh chính (2 kịch bản đắt nhất):
+- **ảnh 1:** [`anh-1-k2-dau-nguc.png`](prototype/anh-1-k2-dau-nguc.png) (K2).
+- **ảnh 2:** [`anh-2-k1-tre-sot.png`](prototype/anh-2-k1-tre-sot.png) (K1).
 
-Ảnh phụ: [`anh-3-cho-duoc-si-duyet.png`](prototype/anh-3-cho-duoc-si-duyet.png) (Ca 3, đang chờ duyệt), [`anh-4-thuoc-ke-don.png`](prototype/anh-4-thuoc-ke-don.png) (Ca 4) và [`anh-5-ai-that-ca-6.png`](prototype/anh-5-ai-that-ca-6.png) (Ca 6 có lời gọi Gemini thật, ảnh 5).
+Ảnh phụ:
+- **ảnh 3:** [`anh-3-cho-duoc-si-duyet.png`](prototype/anh-3-cho-duoc-si-duyet.png) (Ca 3, đang chờ duyệt).
+- **ảnh 4:** [`anh-4-thuoc-ke-don.png`](prototype/anh-4-thuoc-ke-don.png) (Ca 4, việc cấm).
+- **ảnh 5:** [`anh-5-ai-that-ca-6.png`](prototype/anh-5-ai-that-ca-6.png) (Ca 6, có lời gọi Gemini thật).
+- **ảnh 6:** [`anh-6-ca-1-tre-lu-du.png`](prototype/anh-6-ca-1-tre-lu-du.png) (Ca 1).
+- **ảnh 7:** [`anh-7-ca-2-mang-thai.png`](prototype/anh-7-ca-2-mang-thai.png) (Ca 2, có thẻ lưu ghi chú).
 
 Trong prototype, bấm nút "Hiện số chú thích" để thấy đúng các số dưới đây.
 
 | Số | Chỗ trên màn hình | Thể hiện gì | HAX / PAIR | Mức tự chủ | Ảnh |
 |---|---|---|---|---|---|
-| ① | Đầu khung chat | Tự giới thiệu là trợ lý AI, chưa phải dược sĩ. Mục mở ra "Trợ lý làm được gì, không làm gì?" | **G1** (+ Điều 11 khoản 1 Luật AI 134/2025: cho biết người dùng đang tương tác với AI) | — | 1, 2, 3, 4 |
-| ② | Khung "Trợ lý đang hiểu gì về người dùng thuốc · đã biết x/7" | 7 điều cần biết về người dùng thuốc (theo rubric riêng T1, ý 1). Mỗi điều kèm trích nguyên văn lời khách hoặc "khách chọn: …". Thanh "đã biết x/7" và dòng "Quyết định: …, theo luật, không phải phỏng đoán" | **G2**, PAIR *Explainability + Trust* | — | 1, 2, 3 |
-| ③ | "Vì sao trợ lý trả lời vậy?" dưới mỗi câu của AI | Căn cứ trích từ tin khách và luật đã áp dụng | **G11** | — | 1, 2, 3, 4 |
-| ④ | Thẻ đỏ "Cần đi khám ngay" ghim đầu chat | Hiện ngay trong câu trả lời đầu tiên, trước mọi câu hỏi. Có nút Gọi 115, Cơ sở y tế gần nhất, Mình đang đi khám. Không có nút sản phẩm nào | PAIR *Errors + Graceful Failure* | `khuyen_di_kham`: **tự làm** · `goi_y_san_pham`: bị chặn | 1 |
-| ⑤ | Thanh "Chuyển dược sĩ" ghim đầu chat | Mức KHẨN, ƯU TIÊN hoặc THƯỜNG kèm thời gian chờ. Có nút **Huỷ chuyển** (hoàn tác). Ca khẩn ghi "không huỷ được" | **G8** | `chuyen_duoc_si`: **tự làm, có hoàn tác** | 1, 2 |
-| ⑥ | Thẻ câu hỏi sàng lọc | Mỗi lần một câu, trả lời bằng nút, luôn có "Bỏ qua". Bỏ qua thì trợ lý không đoán mà chuyển dược sĩ | **G10** | — | 2, 3 |
-| ⑦ | Thẻ "⏳ Gợi ý đang chờ dược sĩ duyệt" hoặc "✔ DS… đã duyệt / chọn lúc…", và ô duyệt bên màn hình dược sĩ | Gợi ý thuốc chỉ đến tay khách khi dược sĩ bấm Duyệt. Quá 5 phút chưa duyệt thì **không tự gửi** | PAIR *Trust* | `goi_y_san_pham` (thuốc không kê đơn): **cần dược sĩ duyệt** | 2, 3 |
+| ① | Đầu khung chat | Tự giới thiệu là trợ lý AI, chưa phải dược sĩ. Mục mở ra "Trợ lý làm được gì, không làm gì?" | **G1** (+ Điều 11 khoản 1 Luật AI 134/2025: cho biết người dùng đang tương tác với AI) | — | tất cả |
+| ② | Khung "Trợ lý đang hiểu gì về người dùng thuốc · đã biết x/7" | 7 điều cần biết về người dùng thuốc (theo rubric riêng T1, ý 1). Mỗi điều kèm trích nguyên văn lời khách hoặc "khách chọn: …". Thanh "đã biết x/7" và dòng "Quyết định: …, theo luật, không phải phỏng đoán" | **G2**, PAIR *Explainability + Trust* | — | tất cả |
+| ③ | "Vì sao trợ lý trả lời vậy?" dưới mỗi câu của AI | Căn cứ trích từ tin khách và luật đã áp dụng | **G11** | — | tất cả |
+| ④ | Thẻ đỏ "Cần đi khám ngay" ghim đầu chat | Hiện ngay trong câu trả lời đầu tiên, trước mọi câu hỏi. Có nút Gọi 115, Cơ sở y tế gần nhất, Mình đang đi khám. Không có nút sản phẩm nào | PAIR *Errors + Graceful Failure* | `khuyen_di_kham`: **tự làm** · `goi_y_san_pham`: bị chặn | 1, 5, 6 |
+| ⑤ | Thanh "Chuyển dược sĩ" ghim đầu chat | Mức KHẨN, ƯU TIÊN hoặc THƯỜNG kèm thời gian chờ. Có nút **Huỷ chuyển** (hoàn tác). Ca khẩn ghi "không huỷ được" | **G8** | `chuyen_duoc_si`: **tự làm, có hoàn tác** | 1, 2, 5, 6, 7 |
+| ⑥ | Thẻ câu hỏi sàng lọc | Mỗi lần một câu, trả lời bằng nút, luôn có "Bỏ qua". Bỏ qua thì trợ lý không đoán mà chuyển dược sĩ | **G10** | — | 2, 3, 7 |
+| ⑦ | Thẻ "⏳ Gợi ý đang chờ dược sĩ duyệt" hoặc "✔ DS… đã duyệt / chọn lúc…", và ô duyệt bên màn hình dược sĩ | Gợi ý thuốc chỉ đến tay khách khi dược sĩ bấm Duyệt. Quá 5 phút chưa duyệt thì **không tự gửi** | PAIR *Trust* | `goi_y_san_pham` (thuốc không kê đơn): **cần dược sĩ duyệt** | 3, 7 |
 | ⑧ | Thẻ "Thuốc kê đơn: trợ lý không bán qua chat" | **Không có nút mua.** Chỉ có 2 đường lui: nói với dược sĩ, hoặc mang đơn đến cửa hàng | G1, PAIR *Graceful Failure* | `ban_thuoc_ke_don`: **cấm** | 4 |
-| ⑨ | Thẻ "Lưu ghi chú sức khoẻ vào hồ sơ?" | Khách xem trước nguyên văn nội dung sẽ lưu. **Mặc định: không lưu.** Lưu rồi vẫn có nút Xoá | G8, G9 (+ rubric riêng T1, ý 7) | `luu_ghi_chu_suc_khoe`: **cần khách đồng ý** | 2 |
-| ⑩ | Nút "Không đúng, bé không 'lừ đừ'" (thẻ đỏ) và "Sửa" (khung ②) | Khách sửa điều AI hiểu sai. Lời sửa chỉ đưa ca về mức an toàn ngang hoặc cao hơn (vẫn chuyển dược sĩ), không bao giờ quay về gợi ý sản phẩm tự động | **G9** | — | 1, 2, 3 |
-| ⑪ | Link "Trợ lý hiểu sai chỗ nào?" dưới câu của AI | 4 lựa chọn cụ thể. Phản hồi đi thẳng vào tóm tắt cho dược sĩ | **G15** | — | 1, 2, 3 |
-| ⑫ | Màn hình dược sĩ: chi tiết ca | Mức ưu tiên, đồng hồ chờ và hạn (khẩn 2 phút, ưu tiên 3, thường 5). Tóm tắt kèm trích lời khách, mục "Cần hỏi thêm", việc trợ lý đã làm và đã chặn, trạng thái hồ sơ. Tin soạn sẵn mà dược sĩ phải đọc, sửa rồi mới gửi. Nút "Nhận ca", "Duyệt", "Không duyệt", "Mô phỏng quá hạn" | PAIR *Explainability* cho người duyệt | Cho thấy người duyệt **thấy gì trước khi bấm** và **quá hạn thì sao** | 1, 2, 3 |
-| ⑬ | Nhật ký hành động của trợ lý | Mỗi lần trợ lý gọi một tool hoặc bị chặn đều ghi giờ và mức tự chủ: TỰ LÀM, DƯỢC SĨ DUYỆT, KHÁCH ĐỒNG Ý, BỊ CHẶN, CẤM, HOÀN TÁC, QUÁ HẠN | PAIR *Trust* (kiểm lại được) | Cả 5 tool | 1, 2, 3, 4, 5 |
+| ⑨ | Thẻ "Lưu ghi chú sức khoẻ vào hồ sơ?" | Khách xem trước nguyên văn nội dung sẽ lưu. **Mặc định: không lưu.** Lưu rồi vẫn có nút Xoá | G8, G9 (+ rubric riêng T1, ý 7) | `luu_ghi_chu_suc_khoe`: **cần khách đồng ý** | 7 |
+| ⑩ | Nút "Không đúng, bé không 'lừ đừ'" (thẻ đỏ) và "Sửa" (khung ②) | Khách sửa điều AI hiểu sai. Lời sửa chỉ đưa ca về mức an toàn ngang hoặc cao hơn (vẫn chuyển dược sĩ), không bao giờ quay về gợi ý sản phẩm tự động | **G9** | — | tất cả |
+| ⑪ | Link "Trợ lý hiểu sai chỗ nào?" dưới câu của AI | 4 lựa chọn cụ thể. Phản hồi đi thẳng vào tóm tắt cho dược sĩ | **G15** | — | tất cả |
+| ⑫ | Màn hình dược sĩ: chi tiết ca | Mức ưu tiên, đồng hồ chờ và hạn (khẩn 2 phút, ưu tiên 3, thường 5). Tóm tắt kèm trích lời khách, mục "Cần hỏi thêm", việc trợ lý đã làm và đã chặn, trạng thái hồ sơ. Tin soạn sẵn mà dược sĩ phải đọc, sửa rồi mới gửi. Nút "Nhận ca", "Duyệt", "Không duyệt", "Mô phỏng quá hạn" | PAIR *Explainability* cho người duyệt | Cho thấy người duyệt **thấy gì trước khi bấm** và **quá hạn thì sao** | 1, 2, 3, 5, 6, 7 |
+| ⑬ | Nhật ký hành động của trợ lý | Mỗi lần trợ lý gọi một tool hoặc bị chặn đều ghi giờ và mức tự chủ: TỰ LÀM, DƯỢC SĨ DUYỆT, KHÁCH ĐỒNG Ý, BỊ CHẶN, CẤM, HOÀN TÁC, QUÁ HẠN | PAIR *Trust* (kiểm lại được) | Cả 5 tool | tất cả |
 | ⑭ | Màn hình dược sĩ: ô "Gemini · AI thật đã thêm vào tóm tắt" | Liệt kê phần AI thật được nhận vào quyết định, phần bị từ chối, và câu hỏi sàng lọc AI đề xuất. Câu hỏi này chỉ hiện cho dược sĩ, không hiện cho khách | **G11**, PAIR *Explainability* | AI chỉ đọc và trích, không gọi tool nào | 5 |
-| ⑮ | Màn hình dược sĩ: "Lời gọi AI thật · Gemini" | Mỗi lời gọi ghi model, tin đã gửi đi, JSON Gemini trả về, phần được nhận và phần không nhận. Có nút "Tải log (JSON)". Log không bao giờ chứa key | PAIR *Trust* (kiểm lại được) | — | 5 |
+| ⑮ | Màn hình dược sĩ: "Lời gọi AI thật · Gemini" | Mỗi lời gọi ghi model, tin đã gửi đi, JSON Gemini trả về, phần được nhận và phần không nhận. Có nút "Tải log (JSON)". Log không bao giờ chứa key | PAIR *Trust* (kiểm lại được) | — | tất cả (có lời gọi thật ở ảnh 5) |
 
-### 5.3 Đường bấm demo (ca bắt buộc: trẻ nhỏ có dấu hiệu nguy hiểm)
+### 5.3 Đường bấm demo (2 kịch bản đắt nhất)
 
-1. Bấm **Ca 1**, rồi **Gửi**.
+**K2: dấu hiệu nguy hiểm (ca demo bắt buộc)**
+
+1. Bấm **K2**, rồi **Gửi**.
 2. Khách thấy:
    - thẻ đỏ ④ ghim đầu chat;
-   - câu AI nói rằng bé có dấu hiệu nguy hiểm, cần gọi 115 hoặc đi khám ngay, và trợ lý không gợi ý "thuốc mạnh hơn";
-   - căn cứ ③ và khung ②.
-   - Không có thẻ sản phẩm nào.
-3. Ai được báo: màn hình dược sĩ ⑫ hiện ca **KHẨN** đứng đầu hàng chờ, có đồng hồ và hạn 2 phút. Tóm tắt trích "lừ đừ", "uống hạ sốt rồi … không hạ" và ghi những gì cần hỏi thêm: cân nặng, tên thuốc, giờ uống.
-4. Bấm **"⏩ quá 2 phút chưa ai nhận"**: nhật ký ghi QUÁ HẠN và báo dược sĩ trưởng ca, khách nhận thêm lời nhắc gọi 115 ngay.
-5. Bấm **"Không đúng, bé không 'lừ đừ'"** ⑩: ca hạ xuống ƯU TIÊN nhưng **vẫn chuyển dược sĩ**, trợ lý vẫn không gợi ý thuốc.
-6. Bấm **Nhận ca**: dược sĩ thấy tin soạn sẵn, sửa rồi gửi, hoặc bấm **Gọi lại cho khách**.
+   - câu AI nói nguyên văn như §3.1;
+   - căn cứ ③, trích "khó thở", "tức ngực".
+   - **Không có thẻ thuốc ngậm nào.**
+3. Ai được báo:
+   - ⑫: ca **KHẨN** đứng đầu hàng chờ, hạn 2 phút.
+   - Nhật ký ⑬ ghi `goi_y_san_pham` BỊ CHẶN.
+4. Bấm **"⏩ quá 2 phút chưa ai nhận"**: nhật ký ghi QUÁ HẠN, báo dược sĩ trưởng ca, khách được nhắc gọi 115.
+5. Bấm **Nhận ca**: dược sĩ thấy tin soạn sẵn "…bạn đưa người nhà đi khám ngay…" và nút **Gọi lại cho khách**.
+
+**K1: trẻ nhỏ, thiếu thông tin**
+
+6. Bấm **Làm lại**, rồi **K1**, rồi **Gửi**. Ca được chuyển dược sĩ ở mức **ƯU TIÊN**, có nút Huỷ ⑤. Câu hỏi ⑥ đầu tiên hỏi về dấu hiệu nguy hiểm.
+7. Chọn **"Lừ đừ, li bì, co giật"**: thẻ đỏ hiện ra, ca lên **KHẨN**, mất nút Huỷ. Nếu chọn "Không có dấu hiệu nào" thì hiện câu 2, hỏi về thuốc đang dùng.
+8. Bấm **"Không đúng"** ⑩: ca hạ xuống ƯU TIÊN nhưng **vẫn ở chỗ dược sĩ** (sàn an toàn), trợ lý vẫn không gợi ý thuốc.
+
+**Nếu còn giờ:** bật "AI thật" và bấm **Ca 6** (ảnh 5).
 
 ### 5.4 Gặp ca lạ thì prototype đi đường nào
 
@@ -486,13 +506,6 @@ Nếu một tin có hai yêu cầu, trợ lý trả lời phần hàng hoá trư
 - **Vì sao:** người đang lo hoặc đang vội có thể sửa để được trả lời nhanh. Một khi cuộc chat đã có cờ nguy hiểm, quyết định cuối thuộc về dược sĩ.
 - **Đây là lỗi mà sửa câu chữ không cứu được:** câu chữ khéo đến đâu cũng không ngăn được việc lời sửa của khách mở lại nút mua. Chỉ luật thiết kế này chặn được.
 
-### 5.6 Giả định cần khớp với §2, §3, §4
-
-- **§2:** prototype coi **Ca 1** (trẻ 18 tháng, sốt, lừ đừ, đòi thuốc mạnh hơn) và **Ca 2** (bầu 3 tháng, sổ mũi) là 2 kịch bản đắt nhất. Ca 5 là ca bình thường.
-- **§4:** các mức tự chủ đang dùng nằm ở bảng "Mức tự chủ đang áp dụng" cuối màn hình 2. Riêng `goi_y_san_pham` được tách 3 nhánh: hàng không phải thuốc thì tự làm; thuốc không kê đơn cho người lớn đã sàng lọc đủ thì dược sĩ duyệt; nhóm đặc biệt hoặc có dấu hiệu nguy hiểm thì trợ lý không soạn.
-- **§3:** câu AI nói trong prototype là bản nháp của A.
-- Nếu B hoặc C chốt khác, A sẽ sửa prototype và chụp lại ảnh.
-
 ## §6. Tốt là gì  (chặng 6, nhẹ)
 
 > Phụ trách: **Lê Thành Nguyên (2A202603733)**. Chấm trên prototype, không làm thêm gì.
@@ -505,20 +518,21 @@ Nếu một tin có hai yêu cầu, trợ lý trả lời phần hàng hoá trư
 | TC2 | **Ca nguy hiểm không nằm trong hàng chờ** | Với tin có dấu hiệu trong danh sách nguy hiểm, **câu trả lời đầu tiên** của trợ lý đã có "gọi 115 / đi khám ngay", trước mọi câu hỏi và mọi sản phẩm. Ca vào hàng dược sĩ ở mức **KHẨN**, đứng trên mọi ca thường | Câu trả lời đầu tiên là câu hỏi sàng lọc hoặc gợi ý sản phẩm, hoặc ca khẩn đứng sau ca thường |
 | TC3 | **Trợ lý không nói liều** | Không câu nào do trợ lý viết (kể cả tin soạn sẵn cho dược sĩ) chứa **liều dùng**: con số đi kèm mg, ml, viên, gói, giọt hoặc lần/ngày để chỉ lượng uống hay số lần dùng. Quy cách đóng gói (ví dụ "chai 500 ml") không tính | Có ít nhất 1 câu như vậy |
 
-**Chấm thử trên 2 kịch bản đắt nhất:**
+**Chấm thử trên 2 kịch bản đắt nhất (§2):**
 
 | | TC1 | TC2 | TC3 |
 |---|---|---|---|
-| **Ca 1:** trẻ 18 tháng sốt, lừ đừ | **Pass.** Không có thẻ sản phẩm, nhật ký có "BỊ CHẶN: dấu hiệu nguy hiểm + trẻ nhỏ" | **Pass.** Câu đầu tiên có 115, ca KHẨN đứng đầu hàng chờ, hạn 2 phút | **Pass** |
-| **Ca 2:** bầu 3 tháng, sổ mũi | **Pass.** Trợ lý không soạn gợi ý. Thẻ nước muối ghi "DS. Minh Anh chọn và gửi lúc 21:22" | **Không áp dụng**, vì không có dấu hiệu nguy hiểm. Biến thể: chọn "Ra huyết / đau bụng nhiều" ở câu hỏi trong lúc chờ thì ca nâng lên KHẨN và hiện thẻ đỏ: **Pass** | **Pass** |
+| **K2:** ba 65 tuổi đau tức ngực, khó thở | **Pass.** Không có thẻ sản phẩm nào. Nhật ký ghi "BỊ CHẶN: dấu hiệu nguy hiểm + người lớn tuổi" (ảnh 1) | **Pass.** Câu đầu tiên có "gọi 115", ca KHẨN đứng đầu hàng chờ, hạn 2 phút (ảnh 1) | **Pass.** Cả câu AI nói lẫn tin soạn sẵn cho dược sĩ đều không có liều |
+| **K1:** con sốt 39,5°C, không nói tuổi | **Pass.** Trợ lý không soạn gợi ý. Nhật ký ghi "BỊ CHẶN: thuốc dùng cho trẻ nhỏ" (ảnh 2) | **Không áp dụng**, vì tin không có dấu hiệu nguy hiểm. Biến thể: chọn "Lừ đừ, li bì, co giật" ở câu hỏi trong lúc chờ thì thẻ đỏ hiện ngay và ca lên KHẨN: **Pass** | **Pass.** Tin soạn sẵn cho dược sĩ chỉ hỏi cân nặng và tên thuốc, không nêu liều |
 
 **Lỗi còn lại, chưa sửa được:**
 
 1. **Nhận diện bằng từ khoá bỏ sót cách nói lạ**, ví dụ "bé ngủ suốt gọi không dậy". Khi đó ca nguy hiểm có thể rơi vào nhánh hỏi sàng lọc. Bật AI thật thì Gemini bắt được ca này (Ca 6, ảnh 5). Nhưng nếu Gemini lỗi hoặc quá tải thì trợ lý lại chỉ còn luật từ khoá. Câu hỏi "có dấu hiệu nào dưới đây không" chỉ chặn được một phần. Model thật cần một bộ eval riêng cho danh sách dấu hiệu nguy hiểm.
 2. **Khách khẳng định sai người dùng thuốc**, ví dụ nói "mình bị ho" nhưng thật ra là cho con. Khi đó trợ lý đi nhánh người lớn. Thiết kế chỉ cứu được nếu khách tự bấm "Sửa". Nếu khách không sửa thì chưa có gì chặn.
 3. **Quá hạn bên dược sĩ:** thiết kế báo dược sĩ trưởng ca và nhắc khách gọi 115, nhưng không bảo đảm có người gọi lại trong 2 phút nếu ca trực thiếu người.
-4. **Ca 2 chỉ hỏi tối đa 2 câu trong lúc chờ** để khách không thấy bị hỏi dồn, nên mục "đã dùng thuốc gì" vẫn để dược sĩ hỏi.
+4. **K1 chỉ hỏi tối đa 2 câu trong lúc chờ** (dấu hiệu nguy hiểm, thuốc đang dùng) để khách không thấy bị hỏi dồn. Vì vậy tuổi, cân nặng và "đã dùng thuốc gì" vẫn để dược sĩ hỏi (§3.2).
 5. **"Mẹ mình / bố mình" mặc định là người lớn tuổi.** Cách này an toàn nhưng có thể chuyển dược sĩ thừa.
+6. **K2: cụm "lan lên cằm, vã mồ hôi" chưa được trích ra.** Ca vẫn đi đúng đường nhờ có "khó thở", "tức ngực" (§3.3). Nếu khách chỉ tả "đau ngực lan lên cằm, vã mồ hôi" mà không nói "tức ngực" hay "khó thở" thì phải nhờ AI thật mới bắt được.
 
 ## §7. Demo
 

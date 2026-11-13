@@ -238,7 +238,7 @@ body.annot [data-anno]::before{content:attr(data-anno);position:absolute;top:-11
       <div class="panel" id="logPanel"></div>
       <div class="panel ailog" id="aiLogPanel"></div>
       <div class="panel">
-        <h5>Mức tự chủ đang áp dụng (bản A đề xuất, chốt theo spec §4)</h5>
+        <h5>Mức tự chủ đang áp dụng (theo spec §4)</h5>
         <table class="legend">
           <tr><td><code>khuyen_di_kham</code></td><td><span class="badge b-auto">TỰ LÀM</span> hiện ngay, ghim đầu chat, không hỏi sàng lọc trước</td></tr>
           <tr><td><code>chuyen_duoc_si</code></td><td><span class="badge b-auto">TỰ LÀM</span> có nút Huỷ (hoàn tác); ca khẩn không huỷ được</td></tr>
@@ -257,6 +257,8 @@ window.onerror=function(m,s,l,c){var e=document.getElementById('err');e.style.di
 
 /* ================= DỮ LIỆU DỰNG ================= */
 const PRESETS={
+  k2:{label:'K2 · Ba 65 tuổi đau ngực',clock:[22,40],text:'Ba mình 65 tuổi, đang đau tức ngực trái lan lên cằm, vã mồ hôi, khó thở, có thuốc ngậm nào đỡ đau không?'},
+  k1:{label:'K1 · Con sốt 39,5°C, không nói tuổi',clock:[23,30],text:'Con mình sốt cao 39.5 độ từ chiều, có thuốc hạ sốt nào uống đỡ liền không shop?'},
   1:{label:'Ca 1 · Trẻ 18 tháng sốt, lừ đừ',clock:[23,47],text:'con mình 18 tháng sốt 39 độ từ chiều, uống hạ sốt rồi mà không hạ, giờ bé cứ lừ đừ, có thuốc gì mạnh hơn không, nhanh giúp mình với'},
   2:{label:'Ca 2 · Bầu 3 tháng, sổ mũi',clock:[21,20],text:'Mình đang bầu 3 tháng, bị cảm sổ mũi 2 hôm, có thuốc nào không ảnh hưởng em bé không ạ?'},
   3:{label:'Ca 3 · Đau họng 2 ngày',clock:[22,5],text:'Họng mình đau rát 2 ngày nay, có thuốc gì không?'},
@@ -264,6 +266,7 @@ const PRESETS={
   5:{label:'Ca 5 · Hỏi nước muối',clock:[21,50],text:'Pharmacity gần mình còn nước muối sinh lý không, tối nay mình qua lấy.'},
   6:{label:'Ca 6 · Ca lạ: ngủ gọi không dậy',clock:[23,10],text:'thằng cu nhà em 3 tuổi sốt từ tối qua, giờ cứ ngủ suốt gọi mãi không dậy, cho em xin thuốc hạ sốt loại nào tốt'}
 };
+const ORDER=['k2','k1',1,2,3,4,5,6];
 const DANGER=['lừ đừ','li bì','lơ mơ','co giật','khó thở','thở gấp','thở rít','tím tái','tím môi','đau ngực','tức ngực','ngất','bất tỉnh','nôn ra máu','đi ngoài ra máu','phân đen','cứng cổ','méo miệng','yếu nửa người','sưng môi','sưng mặt','bỏ bú','không bú','mệt lả','không thở được','ra huyết'];
 const RX=[['kháng sinh','kháng sinh'],['amoxicillin|amoxicilin|amox|augmentin|cefuroxim|cephalexin|azithromycin|ciprofloxacin','kháng sinh'],['thuốc huyết áp|amlodipin|losartan','thuốc huyết áp'],['corticoid|prednisolon|medrol|dexamethason','corticoid'],['thuốc ngủ|diazepam|seduxen','thuốc ngủ / an thần'],['tramadol|codein','thuốc giảm đau gây nghiện'],['metformin|insulin|thuốc tiểu đường','thuốc tiểu đường']];
 const SUP=[['nước muối sinh lý|nước muối','Nước muối sinh lý 0,9% (chai 500 ml)'],['khẩu trang','Khẩu trang y tế (hộp 50 cái)'],['nhiệt kế','Nhiệt kế điện tử'],['băng gạc|bông y tế|băng cá nhân','Băng gạc / bông y tế'],['que thử thai','Que thử thai']];
@@ -681,7 +684,7 @@ function dsAccept(){
 }
 function dsDraftText(){
   const f=S.facts;
-  if(S.path==='EMERG'&&!S.emerg.corrected)return'Chào bạn, mình là dược sĩ Minh Anh. '+(f.target==='child'?'Bé đang '+(f.danger.map(d=>S.quotes['d:'+d]||d).join(', '))+' nên bạn đưa bé đi khám ngay giúp mình nhé':'Với dấu hiệu bạn kể, bạn đi khám ngay giúp mình nhé')+', đừng chờ thêm thuốc. Bạn đang ở gần cơ sở y tế nào? Mình gọi cho bạn ngay bây giờ được không?';
+  if(S.path==='EMERG'&&!S.emerg.corrected)return'Chào bạn, mình là dược sĩ Minh Anh. '+(f.target==='child'?'Bé đang '+(f.danger.map(d=>S.quotes['d:'+d]||d).join(', '))+' nên bạn đưa bé đi khám ngay giúp mình nhé':(f.target==='elderly'?'Với dấu hiệu bạn kể, bạn đưa người nhà đi khám ngay giúp mình nhé':'Với dấu hiệu bạn kể, bạn đi khám ngay giúp mình nhé'))+', đừng chờ thêm thuốc. Bạn đang ở gần cơ sở y tế nào? Mình gọi cho bạn ngay bây giờ được không?';
   if(f.target==='pregnant')return'Chào bạn, mình là dược sĩ Minh Anh. Mẹ bầu 3 tháng bị sổ mũi 2 ngày, không sốt thì bạn có thể rửa mũi bằng nước muối biển xịt mũi, an toàn trong thai kỳ. Bạn tránh tự dùng thuốc cảm tổng hợp. Nếu sốt, khó thở hoặc sau 3 ngày chưa đỡ, bạn đi khám giúp mình nhé.';
   if(f.target==='child')return'Chào bạn, mình là dược sĩ Minh Anh. Mình đã đọc tóm tắt của trợ lý. Bạn cho mình biết thêm cân nặng của bé và tên thuốc hạ sốt bé đã uống, uống lúc mấy giờ nhé.';
   return'Chào bạn, mình là dược sĩ Minh Anh. Mình đã đọc tóm tắt của trợ lý. Bạn cho mình hỏi thêm một chút trước khi tư vấn nhé.';
@@ -736,7 +739,7 @@ function noteText(){
   return parts.join(' · ');
 }
 const ACT={
-  preset:a=>{reset(+a);},
+  preset:a=>{reset(PRESETS[a]?a:+a);},
   ans:a=>{const [qi,oi]=a.split(':').map(Number);answer(qi,oi);},
   undoTransfer:()=>{S.transfer.status='huy';S.path='CANCELLED';log('chuyen_duoc_si','HOÀN TÁC','khách huỷ chuyển');
     addAI('Đã huỷ chuyển dược sĩ. Lưu ý: '+(reasonsAll().length?'vì '+reasonsAll().map(r=>REASON[r]).join(' và ')+', ':'')+'trợ lý vẫn không tự gợi ý thuốc. Bạn có thể hỏi giá, tồn kho, hoặc nói chuyện với dược sĩ bất cứ lúc nào.',{btns:[['Nói chuyện với dược sĩ','toDS']]});},
@@ -788,7 +791,7 @@ function renderAiLog(){
 /* ================= VẼ GIAO DIỆN ================= */
 function btn(label,act,arg,cls,anno){return '<button class="btn '+(cls||'')+'" data-act="'+act+'"'+(arg!=null?' data-arg="'+esc(arg)+'"':'')+(anno?' data-anno="'+anno+'"':'')+'>'+esc(label)+'</button>';}
 function render(){
-  $('#cases').innerHTML=Object.entries(PRESETS).map(([k,p])=>'<button data-act="preset" data-arg="'+k+'" class="'+(S.caseId==k?'on':'')+'">'+esc(p.label)+'</button>').join('');
+  $('#cases').innerHTML=ORDER.map(k=>[k,PRESETS[k]]).map(([k,p])=>'<button data-act="preset" data-arg="'+k+'" class="'+(S.caseId==k?'on':'')+'">'+esc(p.label)+'</button>').join('');
   renderPinned();renderChat();renderUnderstand();renderDS();renderAiLog();
   if(!document.body.classList.contains('shot')){const c=$('#chat');c.scrollTop=c.scrollHeight;}
 }
@@ -967,6 +970,7 @@ const PLAYS={
   3:[()=>answer(0,0),()=>answer(1,0),()=>answer(2,0),()=>dsApprove()],
   '3a':[()=>answer(0,0),()=>answer(1,0),()=>answer(2,0)],
   '2b':[()=>answer(0,2)],
+  'k1':[()=>answer(0,0)],'k1b':[()=>answer(0,1)],'k2':[],
   4:[],5:[()=>{S.hold='held';}]
 };
 function boot(){
@@ -975,7 +979,8 @@ function boot(){
   if(p.get('annot')){document.body.classList.add('annot');$('#annotBtn').classList.add('on');}
   if(p.get('shot'))document.body.classList.add('shot');
   const c=p.get('case');
-  reset(c&&PRESETS[parseInt(c)]?parseInt(c):null);
+  const base=c?c.replace(/[ab]$/,''):null;
+  reset(base&&(PRESETS[base]?base:(PRESETS[parseInt(base)]?parseInt(base):null)));
   if(c&&p.get('play')){send($('#msg').value);(PLAYS[c]||[]).forEach(fn=>fn());render();}
   if(p.get('say'))p.get('say').split('|').forEach(m=>send(m));
   if(c&&p.get('play'))$('#msg').value='';
