@@ -1,4 +1,4 @@
-# Bài nộp LAB5 — T1 · Y tế (Pharmacity) · Nhóm NguyenDucHai
+# Bài nộp LAB5 — T1 · Y tế (Pharmacity) · Nhóm T1
 
 ## Thành viên nhóm
 
