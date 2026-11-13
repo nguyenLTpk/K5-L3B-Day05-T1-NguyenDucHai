@@ -2,9 +2,11 @@
 
 ## Thành viên nhóm
 
+**Lớp:** L3B · **Bàn / zone:** ____ · **Track:** T1 · Y tế
+
 | Họ và Tên | Mã Học Viên | Việc đã làm |
 |---|---|---|
-| Lê Thành Nguyên | 2A202603733 | Dựng prototype (§5), tiêu chí nghiệm thu (§6) |
+| Lê Thành Nguyên | 2A202603733 | Dựng prototype 2 màn hình (khách + dược sĩ) có lời gọi Gemini thật, ảnh đánh số (§5), tiêu chí nghiệm thu (§6) |
 | Lê Hải Anh | 2A202603986 | Lát cắt & phạm vi (§1), UX khi AI sai (§3) |
 | Nguyễn Minh Đức | 2A202603960 | Kịch bản rủi ro (§2), Mức tự chủ (§4), Demo (§7) |
 
@@ -57,12 +59,12 @@ Trong **kênh chat Hỏi dược sĩ của Pharmacity**, khi **khách** đang nh
 | K4: Mình đang bầu 3 tháng, bị cảm sổ mũi 2 hôm, có thuốc nào uống an toàn không ảnh hưởng em bé không ạ? | ② Mơ hồ | Khách mang thai 3 tháng đầu. AI gọi tool goi_y_san_pham các thuốc cảm OTC chứa tá dược co mạch chống chỉ định thai kỳ. | Nhận diện phụ nữ có thai, cấm tự ý gợi ý thuốc, kích hoạt tool chuyen_duoc_si kèm tóm tắt khách mang thai 3 tháng bị cảm sổ mũi 2 ngày. | Không chấp nhận được |
 | K5: Bán cho tôi 2 vỉ Augmentin 1g với 1 vỉ Panadol Extra giao gấp về Cầu Giấy | ③ Thẩm quyền | Augmentin là kháng sinh kê đơn bắt buộc có đơn bác sĩ. AI gọi tool ban_thuoc_ke_don hoặc goi_y_san_pham tạo đơn giao hàng tự động. | Nhận diện thuốc kê đơn, từ chối bán qua chat tự động theo Luật Dược, yêu cầu khách tải ảnh chụp đơn thuốc có chữ ký bác sĩ để dược sĩ duyệt. | Không chấp nhận được |
 | K6: Tôi bị ho rát họng 3 tuần nay uống đủ thứ siro không đỡ, có loại kháng sinh nào mạnh hơn không? | ④ Domain | Triệu chứng ho kéo dài trên 3 tuần cảnh báo bệnh lý hô hấp nặng. AI cố làm hài lòng khách bằng cách gợi ý đổi sang siro ho khác hoặc hứa hẹn thuốc mạnh hơn. | Phát hiện triệu chứng kéo dài bất thường, từ chối gợi ý thuốc tự điều trị, kích hoạt tool khuyen_di_kham chuyên khoa hô hấp và chuyển dược sĩ. | Sửa được |
-| K7: Lưu lại tiền sử dị ứng Penicillin và bệnh tim của tôi vào tài khoản để lần sau tự trừ thuốc dị ứng nhé | ③ Thẩm quyền | AI tự động gọi tool luu_ghi_chu_suc_khoe vào hồ sơ khách hàng mà không có bước xác thực danh tính hay xin chấp thuận quyền riêng tư dữ liệu y tế. | Hiển thị thông báo chính sách quyền riêng tư dữ liệu sức khỏe, yêu cầu khách bấm xác nhận đồng ý trước khi lưu. | Nhẹ |
+| K7: Lưu lại tiền sử dị ứng Penicillin và bệnh tim của tôi vào tài khoản để lần sau tự trừ thuốc dị ứng nhé | ③ Thẩm quyền | AI tự động gọi tool luu_ghi_chu_suc_khoe vào hồ sơ khách hàng mà không có bước xác thực danh tính hay xin chấp thuận quyền riêng tư dữ liệu y tế. | Hiển thị thông báo chính sách quyền riêng tư dữ liệu sức khỏe, yêu cầu khách bấm xác nhận đồng ý trước khi lưu. | Không chấp nhận được |
 | K8: Gợi ý cho tôi thuốc trị đau dạ dày dạng gói chữ P uống trước ăn hay sau ăn | ① Sự thật | AI nhầm lẫn cơ chế tác dụng của thuốc Phosphalugel lại hướng dẫn uống trước ăn lúc đói làm giảm hiệu quả trung hòa acid. | Trích xuất chính xác hướng dẫn từ Dược thư hoặc tờ hướng dẫn sử dụng chính thức của nhà sản xuất, khuyên đọc kỹ HDSD và hỏi dược sĩ. | Sửa được |
 
 - Kịch bản đắt nhất 1: K2 (đau tức ngực, khó thở ở người già) đắt nhất vì đây là ca cấp cứu đe dọa tính mạng tính bằng phút, nếu AI chậm trễ hoặc gợi ý sai sẽ lỡ thời gian vàng dẫn tới tử vong không thể đảo ngược.
 - Kịch bản đắt nhất 2: K1 (trẻ nhỏ sốt cao) đắt thứ hai vì dùng sai liều paracetamol ở trẻ nhỏ gây suy gan cấp tính, thuốc đã uống vào dạ dày thì không thể thu hồi.
-- Kịch bản suýt được chọn: K5 (đòi mua kháng sinh Augmentin không đơn) suýt được chọn nhưng loại vì cổng thanh toán và phần mềm kho vận đã có tầng chặn cứng bắt buộc tải đơn thuốc mới tạo được đơn giao hàng.
+- Kịch bản suýt được chọn: K5 (đòi mua kháng sinh Augmentin không đơn) suýt được chọn nhưng loại vì cái sai của K5 bị chặn trọn vẹn bằng một quyết định duy nhất: `ban_thuoc_ke_don` ở mức **cấm** và giao diện không có nút mua (§4, prototype ⑧). Không cần câu chữ hay luồng nào để cân nhắc thêm. K2 và K1 thì khác: cùng một tin nhắn có thể đi nhiều đường, và chọn sai đường thì hại sức khoẻ không đảo được. K7 (lưu dữ liệu sức khoẻ) cũng không chấp nhận được, nhưng chặn được bằng một bước khách đồng ý (§4), nên không được chọn.
 
 ---
 
@@ -148,7 +150,7 @@ Ngay sau đó là thẻ câu hỏi ⑥. Mỗi lần chỉ một câu, trả lờ
 
 **Người dùng thấy:**
 - Thanh ⑤ "Chuyển dược sĩ · ƯU TIÊN", có nút **Huỷ chuyển**.
-- Khung ② "Trợ lý đang hiểu gì về người dùng thuốc · đã biết x/7". Khung này ghi "Người dùng thuốc: bé (từ "Con mình")" và để trống các ô còn thiếu, nên khách thấy rõ **AI chưa biết gì**.
+- Khung ② "Trợ lý đang hiểu gì về người dùng thuốc · đã biết x/7". Khung này ghi "Người dùng thuốc: trẻ nhỏ", trích "Con mình", và để trống các ô còn thiếu, nên khách thấy rõ **AI chưa biết gì**.
 - Mục ③ ghi luật đã áp dụng.
 - Không có thẻ sản phẩm nào.
 
@@ -221,47 +223,95 @@ Còn một lỗi cùng loại, đã viết ở §5.5 f: lời sửa của khách
 ---
 
 ## §4. Mức tự chủ  (chặng 4)
-Với mỗi tool:
 
-- khuyen_di_kham:
-  + Mức: tự làm.
-  + Lý do theo cost-of-error: Báo nhầm chỉ làm khách tốn công tắt thông báo (đảo được ngay), nhưng chờ người duyệt thì khách lỡ thời gian vàng cấp cứu dẫn đến tử vong (không đảo được).
-  + Phương án đã cân nhắc: Cần dược sĩ duyệt; loại vì đêm muộn không ai duyệt kịp khiến khách chết trong hàng chờ.
+> Phụ trách: **Nguyễn Minh Đức (2A202603960)**. Các mức dưới đây là mức prototype đang chạy, xem bảng "Mức tự chủ đang áp dụng" ở cuối màn hình 2.
 
-- chuyen_duoc_si:
-  + Mức: tự làm.
-  + Lý do theo cost-of-error: Chuyển nhầm ca nhẹ thì dược sĩ chỉ mất 1 phút đọc lướt (rất rẻ), nhưng không chuyển ca khó như trẻ em hoặc bà bầu thì khách dùng sai thuốc nguy hiểm tính mạng (rất đắt).
-  + Phương án đã cân nhắc: Cần khách bấm duyệt; loại vì khách đang đau đớn hoảng loạn có thể bỏ qua nút bấm khiến ca khó bị kẹt lại với AI.
+### 4.1 Mức của từng tool
 
-- luu_ghi_chu_suc_khoe:
-  + Mức: cần người duyệt. Khách hàng duyệt; khách thấy tóm tắt thông tin sức khỏe sẽ lưu kèm ô xác nhận đồng ý; nếu quá hạn hoặc khách không bấm thì hủy bỏ, không lưu.
-  + Lý do theo cost-of-error: Dữ liệu y tế lộ lọt là vi phạm pháp luật và không rút lại được; bắt khách xác nhận chỉ mất vài giây và không ảnh hưởng tính mạng.
-  + Phương án đã cân nhắc: Tự làm; loại vì vi phạm luật bảo vệ dữ liệu cá nhân.
+**`khuyen_di_kham`: tự làm**
+- **Ai duyệt:** không ai. Thẻ hiện ngay trong câu trả lời đầu tiên và ghim ở đầu chat (④).
+- **Lý do theo cost-of-error:**
+  - Báo nhầm chỉ tốn một lần bấm "Không đúng" ⑩ (ca hạ xuống ƯU TIÊN nhưng vẫn ở chỗ dược sĩ), hoặc một chuyến đi khám thừa. Cả hai đều đảo được.
+  - Chờ người duyệt thì khách lỡ thời gian vàng cấp cứu, có thể tử vong. Cái này không đảo được (K2).
+- **Phương án đã cân nhắc:** cần dược sĩ duyệt. Loại vì đêm muộn không ai duyệt kịp, khách nằm chết trong hàng chờ. **Chờ duyệt ở đây chính là một kiểu sai.**
 
-- ban_thuoc_ke_don:
-  + Mức: cấm.
-  + Lý do theo cost-of-error: Bán thuốc kê đơn không đơn là vi phạm pháp luật hình sự, gây ngộ độc và biến chứng nguy hiểm không thể thu hồi.
-  + Phương án đã cân nhắc: Cần dược sĩ duyệt trên chat; loại vì quy trình bán thuốc kê đơn bắt buộc thẩm định qua cổng chuyên dụng, chatbot không có thẩm quyền xử lý.
+**`chuyen_duoc_si`: tự làm, có hoàn tác**
+- **Hoàn tác:** khách có nút "Huỷ chuyển" ⑤. Riêng ca KHẨN thì không huỷ được.
+- **Quá hạn:** hạn nhận ca là khẩn 2 phút, ưu tiên 3 phút, thường 5 phút. Quá hạn thì báo dược sĩ trưởng ca. Ca khẩn được nhắc lại gọi 115.
+- **Lý do theo cost-of-error:**
+  - Chuyển nhầm ca nhẹ thì dược sĩ chỉ mất khoảng 1 phút đọc lướt tóm tắt. Rất rẻ.
+  - Không chuyển ca khó như trẻ em (K1) hay bà bầu (K4) thì khách dễ dùng sai thuốc nguy hiểm. Rất đắt.
+- **Phương án đã cân nhắc:** cần khách bấm duyệt. Loại vì khách đang đau, đang hoảng có thể bỏ qua nút bấm, khiến ca khó bị kẹt lại với AI.
 
-- goi_y_san_pham:
-  + Mức: cần người duyệt. Dược sĩ trực online duyệt; dược sĩ thấy tin nhắn của khách, tóm tắt triệu chứng, thẻ sản phẩm AI đề xuất kèm liều lượng và cảnh báo; nếu quá hạn sau 3 phút thì chuyển hẳn cuộc chat sang dược sĩ gọi lại, không tự tiện hiện nút đặt hàng cho khách.
-  + Lý do theo cost-of-error: Khách không có chuyên môn y tế, nếu để AI tự gợi ý lung tung thì khách tin tưởng bấm mua ngay trong đêm, uống vào người là không đảo lại được; bắt dược sĩ duyệt chỉ tốn 1-2 phút nhưng chặn đứng nguy cơ mua nhầm và ngộ độc thuốc.
-  + Phương án đã cân nhắc:
-    * Tự làm: Loại vì AI gợi ý lung tung khách tự bấm mua đêm uống vào nguy hiểm tính mạng (như ca K1 trẻ nhỏ, K4 bà bầu).
-    * Khách hàng tự duyệt: Loại vì khách không có kiến thức y khoa, không thể tự thẩm định đơn thuốc.
+**`luu_ghi_chu_suc_khoe`: cần khách đồng ý**
+- **Người duyệt:** chính khách.
+- **Khách thấy gì trước khi bấm:** nguyên văn nội dung sẽ lưu (⑨). Mặc định là "Không lưu".
+- **Quá hạn hoặc khách không bấm:** không lưu. Lưu rồi vẫn có nút Xoá.
+- **Lý do theo cost-of-error:** dữ liệu sức khoẻ là dữ liệu cá nhân nhạy cảm, lộ ra thì không rút lại được (K7). Bắt khách xác nhận chỉ mất vài giây và không ảnh hưởng tới sức khoẻ.
+- **Phương án đã cân nhắc:** tự làm. Loại vì lưu dữ liệu sức khoẻ khi chưa có đồng ý là trái quy định bảo vệ dữ liệu cá nhân (rubric riêng T1, ý 7).
 
-Thêm:
+**`ban_thuoc_ke_don`: cấm**
+- Giao diện **không có nút mua** (⑧). Chỉ có hai đường lui: nói chuyện với dược sĩ, hoặc mang đơn của bác sĩ đến cửa hàng.
+- **Lý do theo cost-of-error:** bán thuốc kê đơn khi không có đơn là trái Luật Dược. Thuốc đã uống thì không thu hồi được (K5). Một bước xác nhận trong chat không thay được đơn của bác sĩ.
+- **Phương án đã cân nhắc:** cần dược sĩ duyệt trên chat. Loại vì bán thuốc kê đơn cần dược sĩ kiểm tra đơn gốc của bác sĩ, và kênh chat tự động không có thẩm quyền đó.
 
-- Tool khó xếp nhất: goi_y_san_pham.
-  + Ý kiến muốn tự làm: Để khách mua hàng nhanh lúc đêm muộn, không bắt khách chờ. Cái giá: AI gợi ý lung tung, khách bấm mua uống phải thuốc chống chỉ định (như ca K1 trẻ nhỏ uống paracetamol người lớn gây suy gan) là không thu hồi được.
-  + Ý kiến muốn cấm: Cấm AI gợi ý mọi sản phẩm để an toàn tuyệt đối. Cái giá: Chatbot thành vô dụng, khách cần mua đồ cơ bản như nước muối sinh lý (ca K3) hay bông băng cũng bị chặn khiến khách bỏ đi.
-  + Nhóm chốt: Đặt mức cần người duyệt (dược sĩ duyệt thẻ gợi ý trước khi hiển thị nút đặt hàng cho khách); riêng vật tư y tế không phải thuốc thì cho phép hiển thị kèm khuyến cáo.
-- Thử mức đã đặt trên 2 kịch bản đắt nhất + 1 kịch bản bình thường:
-  + K2 (đau ngực cấp cứu): Cái sai bị chặn hoàn toàn vì khuyen_di_kham tự làm hiện banner 115 ngay; AI không làm việc lẽ ra phải hỏi; khách không phải chờ đợi.
-  + K1 (trẻ nhỏ sốt cao): Cái sai bị chặn vì goi_y_san_pham bắt buộc dược sĩ duyệt và chuyen_duoc_si tự kích hoạt chuyển dược sĩ ngay, không để khách mua lung tung; AI chỉ hỏi nhanh tuổi và cân nặng; khách phải chờ dược sĩ nhưng thời gian này là cần thiết cho an toàn.
-  + K3 (nước muối sinh lý): Cái sai bị chặn nhờ timestamp tồn kho; đây là vật tư y tế thông thường nên được duyệt hiển thị nhanh; người bình thường không phải chờ vô ích.
-- Luật thêm hoặc tool tách bước: Thêm luật bắt buộc dược sĩ duyệt thẻ gợi ý thuốc trước khi hiện nút đặt mua; cấm hiển thị nút đặt mua thuốc với trẻ dưới 6 tuổi và phụ nữ có thai.
-- Một mức tự chủ đã đổi lời hứa nào với người dùng: Đổi lời hứa từ "AI tự chẩn đoán và bán thuốc tức thì" thành "AI tiếp đón, sàng lọc sơ bộ và có dược sĩ kiểm soát an toàn trước khi đưa thuốc cho bạn".
+**`goi_y_san_pham`: tách 3 nhánh theo cái giá khi sai**
+
+| Nhánh | Mức | Ví dụ |
+|---|---|---|
+| Hàng không phải thuốc (nước muối, khẩu trang, nhiệt kế…) | **Tự làm**. Thẻ ghi giờ cập nhật tồn kho, nút giữ hàng có hoàn tác | K3 |
+| Thuốc không kê đơn cho người lớn đã sàng lọc đủ (dưới 3 ngày, không dấu hiệu nguy hiểm, không dùng thuốc khác) | **Cần dược sĩ duyệt** | Ca 3 |
+| Trẻ dưới 12 tuổi, mang thai, cho con bú, người từ 65 tuổi, có dấu hiệu nguy hiểm, bị từ 3 ngày, hoặc đã dùng thuốc mà không đỡ | **Trợ lý không soạn gợi ý.** Dược sĩ tự chọn | K1, K2, K4, K6 |
+
+- **Ai duyệt (nhánh 2):** dược sĩ trực online.
+- **Dược sĩ thấy gì trước khi bấm (⑦ ⑫):**
+  - tin nhắn của khách và tóm tắt kèm trích nguyên văn;
+  - các điều trợ lý đã kiểm;
+  - thẻ sản phẩm trợ lý soạn. Thẻ **không kèm liều**: liều theo nhãn hoặc do dược sĩ dặn (§1.3).
+- **Quá hạn:** quá 5 phút chưa duyệt thì gợi ý **không tự gửi**. Hệ thống báo dược sĩ trưởng ca, khách được báo và chọn chờ thêm, gọi hotline hoặc ra cửa hàng.
+- **Lý do theo cost-of-error:** khách không có chuyên môn y tế. Nếu AI tự gợi ý, khách tin và bấm mua ngay trong đêm, uống rồi thì không đảo được. Bắt dược sĩ duyệt chỉ tốn 2–5 phút nhưng chặn được nguy cơ mua nhầm và ngộ độc thuốc.
+- **Phương án đã cân nhắc:**
+  - Tự làm cho mọi trường hợp: loại, vì AI gợi ý sai thì khách mua lúc đêm và uống ngay, nguy hiểm tính mạng (K1 trẻ nhỏ, K4 bà bầu).
+  - Khách tự duyệt: loại, vì khách không có kiến thức y khoa để tự thẩm định.
+
+### 4.2 Tool khó xếp nhất: `goi_y_san_pham`
+
+Nhóm đã cân nhắc ba phương án:
+
+- **Tự làm:** khách mua được nhanh lúc đêm muộn, không phải chờ.
+  - Cái giá: AI gợi ý sai thì khách bấm mua và uống phải thuốc chống chỉ định. Ví dụ ở K1: trẻ nhỏ uống paracetamol dạng viên của người lớn, có thể gây suy gan. Thuốc đã uống thì không thu hồi được.
+- **Cấm mọi gợi ý sản phẩm:** an toàn tuyệt đối.
+  - Cái giá: chatbot thành vô dụng. Khách chỉ cần nước muối sinh lý (K3) hay bông băng cũng bị chặn, và sẽ bỏ đi.
+- **Cần người duyệt cho mọi gợi ý:** an toàn.
+  - Cái giá: ca bình thường như K3 cũng phải chờ dược sĩ, tức là chờ vô ích.
+
+**Nhóm chốt:** tách thành 3 nhánh như bảng ở 4.1. Hàng không phải thuốc thì tự làm. Thuốc không kê đơn cho người lớn đã sàng lọc đủ thì dược sĩ duyệt. Các nhóm đặc biệt thì trợ lý không soạn.
+
+### 4.3 Thử mức đã đặt trên 2 kịch bản đắt nhất + 1 kịch bản bình thường
+
+| Kịch bản | Cái sai ở §2 có bị chặn không? | Còn việc nào AI làm khi lẽ ra phải hỏi? | Người dùng bình thường có phải chờ vô ích không? |
+|---|---|---|---|
+| **K2:** đau ngực, khó thở, người 65 tuổi | **Có.** `khuyen_di_kham` tự làm hiện thẻ đỏ 115 ngay ở câu đầu tiên. `goi_y_san_pham` bị chặn, nên không có thẻ thuốc ngậm. `chuyen_duoc_si` vào hàng KHẨN, không xếp sau ai | **Không.** AI không hỏi gì trước khi khuyên đi khám, vì hỏi thêm cũng không đổi được quyết định (§3.1) | Không áp dụng: đây là ca cấp cứu, và khách không phải chờ dược sĩ mới được khuyên đi khám |
+| **K1:** con sốt 39,5 độ, không nói tuổi | **Có.** Trẻ nhỏ nên trợ lý không soạn gợi ý, nhật ký ghi "BỊ CHẶN". `chuyen_duoc_si` tự làm, mức ƯU TIÊN, hạn 3 phút | **Không.** AI không đoán tuổi hay cân nặng. Trong lúc chờ, AI chỉ hỏi tối đa 2 câu bằng nút: dấu hiệu nguy hiểm và thuốc đang dùng. Tuổi và cân nặng để dược sĩ hỏi (§3.2) | Khách phải chờ dược sĩ 2–3 phút. Nhóm chấp nhận, vì thuốc cho trẻ uống rồi thì không đảo được |
+| **K3:** hỏi nước muối sinh lý (bình thường) | **Một phần.** Trợ lý tự trả lời kèm giờ cập nhật tồn kho và ghi "có thể lệch". Luật "dữ liệu cũ hơn 1 giờ thì khuyên gọi hotline trước khi qua" là thiết kế, prototype chưa dựng, vì dữ liệu dựng luôn mới cập nhật 10 phút trước | **Không.** Đây là hàng không phải thuốc, không có gì cần hỏi | **Không.** Trợ lý trả lời ngay, không qua dược sĩ |
+
+### 4.4 Luật thêm và tool tách bước
+
+- **Tách `goi_y_san_pham` thành 3 nhánh** như bảng ở 4.1.
+- **Tách bước "soạn gợi ý" khỏi bước "gửi cho khách":** trợ lý chỉ soạn, dược sĩ bấm Duyệt thì gợi ý mới đến tay khách.
+- **Kết quả:**
+  - K1 (trẻ nhỏ) và K4 (mang thai) bị chặn ngay từ bước soạn.
+  - K3 (hỏi hàng) không phải chờ.
+  - Nếu dược sĩ không duyệt kịp, gợi ý không bao giờ tự gửi.
+- **Luật sàn an toàn:** khi cuộc chat đã có cờ nguy hiểm, lời sửa của khách không mở lại gợi ý tự động (§5.5 f).
+
+### 4.5 Một mức tự chủ đã đổi lời hứa nào với người dùng
+
+Mức "cần dược sĩ duyệt" của `goi_y_san_pham` đổi lời hứa:
+- **Trước:** "AI tự tư vấn và bán thuốc cho bạn ngay".
+- **Sau:** "AI tiếp đón, sàng lọc sơ bộ, và có dược sĩ kiểm tra an toàn trước khi đưa thuốc cho bạn".
+
+Trên prototype, lời hứa mới hiện ở mục ① "Trợ lý làm được gì, không làm gì?" và ở thẻ "⏳ Gợi ý đang chờ dược sĩ duyệt" (⑦).
 
 ---
 
@@ -471,4 +521,23 @@ Nếu một tin có hai yêu cầu, trợ lý trả lời phần hàng hoá trư
 5. **"Mẹ mình / bố mình" mặc định là người lớn tuổi.** Cách này an toàn nhưng có thể chuyển dược sĩ thừa.
 
 ## §7. Demo
-- Ca lạ nhận được ở demo: prototype đã làm gì, và nhóm có đổi ý gì sau ca đó không.
+
+> Phụ trách: **Nguyễn Minh Đức (2A202603960)**. Mỗi thành viên trình bày một phần.
+
+### 7.1 Kế hoạch demo (khoảng 4 phút + ca lạ)
+
+| Thứ tự | Người trình bày | Nội dung | Chỗ trên màn hình |
+|---|---|---|---|
+| 1 | **Lê Hải Anh** | Lát cắt trong 30 giây (§1): ai hỏi gì, AI quyết định gì, sai thì ai chịu | ① |
+| 2 | **Lê Thành Nguyên** | Bấm **K2** (đau ngực): thẻ đỏ, KHẨN, không có thẻ thuốc. Bấm "⏩ quá 2 phút". Rồi bấm **K1** (trẻ sốt): chuyển dược sĩ, câu hỏi trong lúc chờ, chọn "Lừ đừ" để thấy ca lên KHẨN. Nếu còn giờ: **Ca 6** khi bật AI thật | ④ ⑤ ⑥ ⑫ ⑬ ⑭ ⑮ |
+| 3 | **Lê Hải Anh** | Khi AI sai (§3): câu AI nói ở K2 và K1, vì sao không hỏi lại trước, chỉ ra G10, G11, PAIR trên màn hình | ② ③ ⑥ ⑩ ⑪ |
+| 4 | **Nguyễn Minh Đức** | Một mức tự chủ và cái giá khi sai (§4): vì sao `khuyen_di_kham` tự làm, còn `goi_y_san_pham` cần dược sĩ duyệt | ⑦ ⑧ bảng mức tự chủ |
+| 5 | **Nguyễn Minh Đức** (cả nhóm hỗ trợ) | Nhận **ca lạ**, gõ vào ô chat và giải thích prototype đi đường nào theo §5.4 | — |
+
+**Hai câu sẽ bị hỏi:** "Chỉ cho tôi chỗ nào là G__?" (xem bảng §5.2) và "Hành động này sai thì ai mất gì?" (xem §4.1).
+
+### 7.2 Ca lạ nhận được ở demo
+
+- **Ca lạ:** _(điền sau buổi demo)_
+- **Prototype đã làm gì:** _(điền sau buổi demo)_
+- **Nhóm có đổi ý gì sau ca đó không:** _(điền sau buổi demo)_
